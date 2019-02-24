@@ -1,114 +1,90 @@
 
-public class Piece{
 
-	public String color;
-	public String type;
-	public int number;
-	public Coord position;
-	public String display;
 
-    public Piece(){
-    	this.color = " none ";
-    	this.type = " none ";
-    	this.display = " none ";
-    	this.position = new Coord( 0, 0 );
-    	this.number = 0;
-    }
+public class Pieces {
+	//private List<Pieces> pieces = new ArrayList<>();
+	private Coord currentCoord;
+	private Coord movementCoord;
+	private String type;
+	private String colour;
+	private String name;
+  
 
-    public Piece(String pieceColor, String pieceType, int pieceNumber,
-    	Coord somePosition){
+	public Piece(){
+		this.currentCoord = Coord(0, 0);
+		this.movementCoord = Coord(0, 0);
+		this.type = “pawn”;
+		this.colour = “black";
+		this.name = "p1";
 
-        setPieceColor(pieceColor);
-        setPieceType(pieceType);
-        setPieceNumber(pieceNumber);
-        setPosition(somePosition);
+    	}
 
-        // make sure these return copies for proper encapsulation
-        this.color = getPieceColor();
-        this.type = getPieceType();
-        this.number = getPieceNumber();
-        this.position = getPosition();
-        // generate a console string with all the information regarding the piece
-        this.display = displayString();
-    }
+    	public Piece(String inititalType, String intitialColour, Coord initialCoord, String inititalName){
 
-    public void setPosition(Coord somePosition){
-        position = somePosition;
-    }
+		this.type = initialType;
+		this.colour = inititalColour;
+		this.currentCoord = initialCoord;
+		this.movementCoord = Coord(0, 0);
+		this.name = intitialName;
+    	}
 
-    public Coord getPosition(){
-        Coord copyPosition = position;
-        return copyPosition;
-    }
+	public void setType(String type){
+		this.type = type;
+		
+	}
+	
+	public String getType(){
+		String copyType = this.type;
+		
+		return copyType;
+	}
 
-    public void setPieceColor(String someColor){
-        color = someColor;
-    }
+	public void setColour(String colour){
+		this.type = type;
+		
+	}
+	
+	public String getColour(){
+		String copyColour = this.colour;
+		
+		return copyColour;
+	}
 
-    public String getPieceColor(){
-        String copyColor = color;
-        return copyColor;
-    }
+	public void setMovementCoord(Coord coord){
+		this.movementCoord = coord;
+		
+	}
+	
+	public String getMovementCoord(){
+		String copyCoord = this.movementCoord;
+		
+		return copyCoord;
+	}
 
-    public void setPieceType(String someType){
-        type = someType;
-    }
+	public void setCurrentCoord(Coord coord){
+		this.currentCoord = coord;
+		
+	}
+	
+	public String getCurrentCoord(){
+		String copyCoord = this.currentCoord;
+		
+		return copyCoord;
+	}
 
-    public String getPieceType(){
-        String copyPieceType = type;
-        return copyPieceType;
-    }
+	public void setName(String name){
+		this.name = name;
+		
+	}
+	
+	public String getName(){
+		String copyName = this.name;
+		
+		return copyName;
 
-    public void setPieceNumber(int someNumber){
-        number = someNumber;
-    }
+	}
 
-    public int getPieceNumber(){
-        int copyNumber = number;
-        return copyNumber;
-    }
-
-    public String displayString(){
-        String consoleString;
-        String thePieceType = getPieceType();
-        String thePieceColor = getPieceColor();
-        String thePieceNumber = Integer.toString(getPieceNumber());
-
-        if (thePieceType == "pawn" && thePieceColor == "white"){
-            consoleString = "P";
-        }
-
-        else if (thePieceType == "pawn" && thePieceColor == "black"){
-            consoleString = "p";
-        }
-
-        else if (thePieceType == "knight" && thePieceColor == "white"){
-            consoleString = "K";
-        }
-
-        else if (thePieceType == "knight" && thePieceColor == "black"){
-            consoleString = "k";
-        }
-
-        else {
-        	consoleString = "none";
-        }
-
-        consoleString += thePieceNumber;
-
-        return consoleString;
-    }
-
-    public String toString(){
-        String printString;
-        String thePieceType = getPieceType();
-        String thePieceColor = getPieceColor();
-        String thePieceNumber = Integer.toString(getPieceNumber());
-
-        printString = "("+thePieceColor+" "+thePieceType+", "+thePieceNumber+")";
-        
-        return printString;
-    }
 
 
 }
+
