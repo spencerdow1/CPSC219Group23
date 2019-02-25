@@ -1,10 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private Piece white;
     private Piece black;
+    //winCondition will search the list for pawns of each colour and return whether the game is over and will print who won
 
-    public boolean winCondition(arraylist){
+    public boolean winCondition(ArrayList){
         boolean win = false;
         boolean whiteWin = arraylist.contains('P');
         boolean blackWin = arraylist.contains('p');
@@ -79,10 +81,12 @@ public class Main {
                 if(this.white.type == pawn && this.black.type == knight) {
                     this.white.state = dead;
                     movePiece(this.black, blackMovementCoord);
+                    piece.remove(this.white);
                 }
                 else {
                     this.black.state = dead;
                     movePiece(this.white, whiteMovementCoord);
+                    piece.remove(this.black);
                 }}
             else {
                 movePiece(this.white, whiteMovementCoord);
