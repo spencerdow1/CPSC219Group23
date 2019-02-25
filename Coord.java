@@ -1,7 +1,7 @@
 public class Coord{
 
 	private int x;
-	private int y
+	private int y;
 
 	public Coord(){
 
@@ -10,32 +10,32 @@ public class Coord{
 
 	}
 
-	public Coord(int intitialX, intitialY){
+	public Coord(int initialX, int initialY){
 		this.x = initialX;
 		this.y = initialY;
 
 	}
 
-	public setX(int x){
+	public void setX(int x){
 		this.x = x;
-
+        
 	}
 
 
-	public getX(){
+	public int getX(){
 		int copyX = this.x;
-
+        return copyX;
 	}
 
-	public setY(int y){
+	public void setY(int y){
 		this.y = y;
 
 	}
 
 
-	public getY(){
+	public int getY(){
 		int copyY = this.y;
-
+        return copyY;
 	}
 
 

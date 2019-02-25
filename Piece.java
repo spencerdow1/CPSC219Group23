@@ -1,7 +1,7 @@
 
 
 
-public class Pieces {
+public class Piece {
 	//private List<Pieces> pieces = new ArrayList<>();
 	private Coord currentCoord;
 	private Coord movementCoord;
@@ -11,21 +11,21 @@ public class Pieces {
   
 
 	public Piece(){
-		this.currentCoord = Coord(0, 0);
-		this.movementCoord = Coord(0, 0);
-		this.type = “pawn”;
-		this.colour = “black";
+		this.currentCoord = new Coord(0, 0);
+		this.movementCoord = new Coord(0, 0);
+		this.type = "pawn";
+		this.colour = "black";
 		this.name = "p1";
 
     	}
 
-    	public Piece(String inititalType, String intitialColour, Coord initialCoord, String inititalName){
+    	public Piece(String initialType, String initialColour, Coord initialCoord, String initialName){
 
 		this.type = initialType;
-		this.colour = inititalColour;
+		this.colour = initialColour;
 		this.currentCoord = initialCoord;
-		this.movementCoord = Coord(0, 0);
-		this.name = intitialName;
+		this.movementCoord = new Coord(0, 0);
+		this.name = initialName;
     	}
 
 	public void setType(String type){
@@ -55,19 +55,21 @@ public class Pieces {
 		
 	}
 	
-	public String getMovementCoord(){
-		String copyCoord = this.movementCoord;
+	public Coord getMovementCoord(){
+		Coord copyCoord = new Coord();
+        copyCoord = this.currentCoord;
 		
 		return copyCoord;
 	}
 
-	public void setCurrentCoord(Coord coord){
+	public void setPosition(Coord coord){
 		this.currentCoord = coord;
 		
 	}
 	
-	public String getCurrentCoord(){
-		String copyCoord = this.currentCoord;
+	public Coord getPosition(){
+		Coord copyCoord = new Coord();
+        copyCoord = this.currentCoord;
 		
 		return copyCoord;
 	}
