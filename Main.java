@@ -39,7 +39,7 @@ public class Main {
         String blackPlayerName = keyboard.nextLine();
 
         setBlackPlayerName(blackPlayerName);
-
+        intilializeBoard();
         initializePeices();
 
         while (winCondition(Pieces) == false) {
@@ -47,8 +47,8 @@ public class Main {
             boolean isBlacksMoveLegal = false;
             Piece whiteSelectedPiece = "P1";
             Piece blackSelectedPiece = "p1";
-            Coord whiteMovementCoord = (0, 0);
-            Coord blackMovementCoord = (0, 0);
+            Coord whiteMovementCoord = (0,0);
+            Coord blackMovementCoord = (0,0);
 
             while (isWhitesMoveLegal == false) {
                 System.out.print("White player select a piece: ");
@@ -71,9 +71,25 @@ public class Main {
 
                 isBlacksMoveLegal = legalMove(this.black, blackMovementCoord);
             }
-            movePiece(this.white, whiteMovementCoord);
-            movePiece(this.black, blackMovementCoord);
+            if (whiteMovementCoord == blackMovementCoord && this.white.type == this.black.type){
+                this.white.state = dead;
+                this.black.state = dead;
+            }
+            else if(whiteMovementCoord == blackMovementCoord && this.white.type =! this.black.type){
+                if(this.white.type == pawn && this.black.type == knight) {
+                    this.white.state = dead;
+                    movePiece(this.black, blackMovementCoord);
+                }
+                else {
+                    this.black.state = dead;
+                    movePiece(this.white, whiteMovementCoord);
+                }}
+            else {
+                movePiece(this.white, whiteMovementCoord);
+                movePiece(this.black, blackMovementCoord);
+            }
 
 
-        }
-    }}
+
+
+    }}}
