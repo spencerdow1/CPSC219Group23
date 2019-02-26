@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Movement{
 
@@ -11,14 +12,14 @@ public class Movement{
 
     /** Sets the current piece 
     **/
-    public void setCurrentPiece(Piece inputPiece){
+    private void setCurrentPiece(Piece inputPiece){
         currentPiece = inputPiece;
     }
 
 
     /** Grabs current piece
     **/
-    public Piece getCurrentPiece(){
+    private Piece getCurrentPiece(){
     	Piece copyCurrentPiece = currentPiece;
     	return copyCurrentPiece;
     }
@@ -26,14 +27,14 @@ public class Movement{
 
     /** Sets the reference piece
     **/
-    public void setReferencePiece(Piece inputPiece){
+    private void setReferencePiece(Piece inputPiece){
     	referencePiece = inputPiece;
     }
 
     
     /** Grabs current reference piece
     **/
-    public Piece getReferencePiece(){
+    private Piece getReferencePiece(){
     	Piece copyReferencePiece = referencePiece;
     	return copyReferencePiece;
     }
@@ -45,11 +46,12 @@ public class Movement{
     @return <isLegalMove> boolean if the move is legal
     @see Coord class
     **/
-    public boolean legalMove(Piece selectedPiece, Coord move){
+    public boolean legalMove(Piece selectedPiece, Coord move, Board aBoard){
     	boolean isLegalMove = false;
-    	ArrayList<Coord> allMovesArray = allMoves(selectedPiece);
+    	ArrayList<Coord> allMovesArray = allMoves(selectedPiece, aBoard);
     	ArrayList<Coord> boundedMovesArray = boundedMoves(allMovesArray);
-    	ArrayList<Coord> allowedMovesArray = allowedMoves(boundedMovesArray);
+    	ArrayList<Coord> allowedMovesArray = allowedMoves(boundedMovesArray,
+    		aBoard);
 
         //use genmoves to populate a list, then check it to see if the move
     	// is in it;
@@ -68,18 +70,21 @@ public class Movement{
     all the generated moves. This determines if a piece can move to a position
     held by the opposite color OR if the piece cannot move as it is already held
     by a piece of the same color. 
-    @param <anArray>: Expects this array to not have values outside of the board
+    @param <aMoveArray>: Expects this array to not have values outside of the board
     @see boundedMoves()
+    @return <legalMoves>: Final list of allowed moves for that piece
     **/
-    public ArrayList<Coord> allowedMoves(ArrayList<Coord> aMoveArray){
+    public ArrayList<Coord> allowedMoves(ArrayList<Coord> aMoveArray,
+    	Board aBoard){
         ArrayList<Coord> legalMoves = new ArrayList<Coord>();
         String refPieceColor, refPieceType;
         
         for (Coord aPosition : aMoveArray){
-        	setReferencePiece(Board.getPiece(aPosition));
+        	setReferencePiece(aBoard.getPiece(aPosition));
 
-            // if there is no piece there, then 
-        	if (referencePiece == null){
+            // if there is no piece there, then a null constructor is
+            // initialized
+        	if (referencePiece.getPieceType() == "none"){
                 legalMoves.add(aPosition);
         	}
 
@@ -87,17 +92,13 @@ public class Movement{
         	else {
         		refPieceColor = referencePiece.getPieceColor();
 
-        		if (refPieceColor == pieceColor){
-                    // do nothing :)
+        		if (refPieceColor != pieceColor){
+                    legalMoves.add(aPosition);
         		}
-
-        		else {
-                   legalMoves.add(aPosition);
-        		}
-
         	}
-
         }
+
+        return legalMoves;
     }
 
 
@@ -106,27 +107,47 @@ public class Movement{
     <pieceType>: Needs the piece type (knight, pawn) to determine movement
     @return <moveList>: The populated list
     **/
-	private ArrayList<Coord> allMoves(Piece somePiece){
+	private ArrayList<Coord> allMoves(Piece somePiece, Board aBoard){
 		String pieceType = somePiece.getPieceType();
 		String pieceColor = somePiece.getPieceColor();
 		Coord piecePosition = somePiece.getPosition();
+		Piece refPiece;
 		String refPieceColor;
         ArrayList<Coord> moveList = new ArrayList<Coord>();
+        Coord forwardIndex;
+        Coord leftIndex;
+        Coord rightIndex;
+        Piece forwardPiece;
+        Piece leftPiece;
+        Piece rightPiece;
 
 		// logical fuckery of populating list of tuples
 
         // TWO CASES FOR PIECES
 
         // KNIGHT
-		if (piecetype == "knight"){
+		if (pieceType == "knight"){
 			// Generate moves for knights
-            if (pieceColor == "white" || pieceColor = "black"){
-                // find java thingy to do list permutations
-                // moveList.add( *all the permutations )
+            if (pieceColor == "white" || pieceColor == "black"){
+                // Only 8 permutations -- manually enter them
+                moveList.add(new Coord(-2,1));
+                moveList.add(new Coord(-1,2));
+                moveList.add(new Coord(1,2));
+                moveList.add(new Coord(2,1));
+                moveList.add(new Coord(2,-1));
+                moveList.add(new Coord(1,-2));
+                moveList.add(new Coord(-1,-2));
+                moveList.add(new Coord(-2,-1));
+
+                for (int i = 0; i<moveList.size(); i++){
+                    Coord aMove = moveList.get(i);
+                    aMove.add(piecePosition);
+                    moveList.set(i, aMove);
+                }
             }
 
             else{
-            	System.out.print("Invalid piece color found in type <knight>.")
+            	System.out.print("Invalid piece color found in type <knight>.");
             }
 		}
 
@@ -135,23 +156,45 @@ public class Movement{
         	// FURTHER BROKEN UP INTO TWO CASES FOR PAWN
         	// WHITE PAWN
         	if (pieceColor == "white"){
-        		moveList.add( piecePosition.add(0,1) );
-        		// retrieve pieces from the (-1,1) position and (1,1) position
-        		// do condition tests to add it to the move. 
+        		forwardIndex = piecePosition.add(0,1);
+        		leftIndex = piecePosition.add(-1,1);
+        		rightIndex = piecePosition.add(1,1);
+        		forwardPiece = aBoard.getPiece(forwardIndex);
+        		leftPiece = aBoard.getPiece(leftIndex);
+        		rightPiece = aBoard.getPiece(rightIndex);
         	}
+
         	// BLACK PAWN
         	else if (pieceColor == "black"){
-                moveList.add( piecePosition.add(0,-1) );
-                // check board for diagonal moves (-1,-1), (-1,+1)
+                forwardIndex = piecePosition.add(0,-1);
+        		leftIndex = piecePosition.add(-1,-1);
+        		rightIndex = piecePosition.add(1,-1);
+        		forwardPiece = aBoard.getPiece(forwardIndex);
+        		leftPiece = aBoard.getPiece(leftIndex);
+        		rightPiece = aBoard.getPiece(rightIndex);
         	}
 
         	else {
         		System.out.println("Invalid piece color found in type <pawn>");
         	}
+
+            // now add the list of moves for the pawn
+    	    if (forwardPiece.getPieceColor() == "none"){
+       			moveList.add(forwardIndex);
+       		}
+
+       		if (leftPiece.getPieceColor() != pieceColor){
+       			moveList.add(leftIndex);
+       		}
+
+        	if (rightPiece.getPieceColor() != pieceColor){
+        		moveList.add(rightIndex);
+            }
+
         }
-        
+
         else {
-        	System.out.println("Invalid piece type found in allMoves.")
+        	System.out.println("Invalid piece type found in allMoves.");
         }
 
 		return moveList;
@@ -166,13 +209,11 @@ public class Movement{
     	null if it is not within the board.
     @see withinBoard()
     **/
-	public Piece checkBoard(Coord location){
-        int xLoc = location.x;
-        int yLoc = location.y;
+	public Piece checkBoard(Coord location, Board aBoard){
         Piece refPiece;
 
         if (withinBoard(location) == true){
-            refPiece = Board[yLoc][xLoc];
+            refPiece = aBoard.getPiece(location);
         }
 
         else {
@@ -191,7 +232,7 @@ public class Movement{
         boolean inBounds;
 
         if (location.x >= 0 || location.x <=4){
-        	withinX = true;
+
         	if (location.y >= 0 || location.y <=4){
         		inBounds = true;
         	}
@@ -211,7 +252,7 @@ public class Movement{
     /** Take in the list of coordinates and eliminate the ones which move
     the piece off the board
     @param <allMoves>: the list of tuples of possible moves
-    @return <boundedMoves>: the list with values of movement off
+    @return <boundedMovesArray>: the list with values of movement off
     of the board deleted
     @see genMoves()
     **/
@@ -220,7 +261,7 @@ public class Movement{
 
         for (Coord aMove : allMoves){
         	if (withinBoard(aMove) == true){
-                boundedMoves.add(aMove);
+                boundedMovesArray.add(aMove);
         	}
         }
 
@@ -237,13 +278,13 @@ public class Movement{
 	}
 
 
-    /** Checks if the pawn has reached the end of the board such that 
-    the test is to see if the pawn will upgrade
-    @param <currentPiece>: the piece in question, will pull coordinates
-    from the piece
-    @return none
-    **/
-    public void upgrade(){
-    	// Conditional test to see if pawn needs to be upgraded
-    }
+    // /** Checks if the pawn has reached the end of the board such that 
+    // the test is to see if the pawn will upgrade
+    // @param <currentPiece>: the piece in question, will pull coordinates
+    // from the piece
+    // @return none
+    // **/
+    // public void upgrade(){
+    // 	// Conditional test to see if pawn needs to be upgraded
+    // }
 }
