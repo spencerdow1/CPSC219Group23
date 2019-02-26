@@ -86,6 +86,30 @@ public class Piece {
 
 	}
 
+    public void upgrade(Piece piece){
+
+        Coord piecePosition = new Coord(piece.getPosition());
+        String pieceColour = piece.getColour();
+        int pieceX = piecePosition.getX();
+        String pieceName = piece.getName();
+        String pieceType = piece.getType();
+        //check for black pawn upgrade
+        if(pieceColour == "black" && pieceType == "pawn"){
+            if(pieceX == 4){
+                setType("knight");
+                setName(pieceName.replace("p", "k"));
+            }
+        //check for white pawn upgrade
+        }else{
+            if(pieceX == 0 && pieceType == "pawn"){
+                setType("knight");
+                setName(pieceName.replace("P", "K"));
+            }
+        }
+        
+
+    }
+
 
 
 }
