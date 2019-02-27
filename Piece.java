@@ -1,15 +1,14 @@
-
-
+import java.util.ArrayList;
 
 public class Piece {
-	//private List<Pieces> pieces = new ArrayList<>();
+	private static ArrayList<Piece> alivePieces = new ArrayList<>();
 	private Coord currentCoord;
 	private Coord movementCoord;
 	private String type;
 	private String colour;
 	private String name;
-  
-
+	
+	
 	public Piece(){
 		this.currentCoord = new Coord(0, 0);
 		this.movementCoord = new Coord(0, 0);
@@ -84,6 +83,56 @@ public class Piece {
 		
 		return copyName;
 
+	}
+	public void initializePieces(){
+	    // change black to lower case and white to upper
+			Coord initializer = new Coord(1, 0);
+			alivePieces.add(new Piece ("pawn", "black", initializer, "P2"));
+			initializer = new Coord(2, 0);
+		    alivePieces.add(new Piece ("pawn", "black", initializer, "P3"));
+			initializer = new Coord(3, 0);
+		    alivePieces.add(new Piece ("pawn", "black", initializer, "P4"));
+			initializer = new Coord(0, 0);
+		    alivePieces.add(new Piece ("knight", "black", initializer, "K1"));
+			initializer = new Coord(0, 4);
+	     	alivePieces.add(new Piece ("knight", "black", initializer, "K2"));
+			initializer = new Coord(0, 1);
+	     	alivePieces.add(new Piece ("pawn", "black", initializer, "P1"));
+			initializer = new Coord(4, 1);
+	     	alivePieces.add(new Piece ("pawn", "black", initializer, "P5"));
+			initializer = new Coord(0, 3);
+	     	alivePieces.add(new Piece ("pawn", "white", initializer, "p1"));
+			initializer = new Coord(4, 3);
+	     	alivePieces.add(new Piece ("pawn", "white", initializer, "p5")); 
+			initializer = new Coord(0, 4);
+	     	alivePieces.add(new Piece ("knight", "white", initializer, "k1"));
+			initializer = new Coord(4, 4);
+	     	alivePieces.add(new Piece ("pawn", "white", initializer, "k2"));
+			initializer = new Coord(1, 4);
+	     	alivePieces.add(new Piece ("pawn", "white", initializer, "p2"));
+			initializer = new Coord(2, 4);
+	     	alivePieces.add(new Piece ("pawn", "white", initializer, "p3"));
+			initializer = new Coord(3, 4);
+	     	alivePieces.add(new Piece ("pawn", "white", initializer, "p4"));
+
+
+	}
+	
+	public static Piece getPiece(String selectedPieceName) {
+        Piece selectedPiece = null ;
+       
+        for(int i = 0;i< alivePieces.size(); i++ ) {
+            if(selectedPieceName == alivePieces.get(i).getName() {
+                selectedPiece = alivePieces.get(i);
+            }
+           
+            else {
+                selectedPiece = null;
+        }}
+        return selectedPiece;
+        }
+	public static ArrayList<Piece> getCurrentListOfPieces(){
+		return alivePieces;
 	}
 
     public void upgrade(Piece piece){

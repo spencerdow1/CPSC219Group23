@@ -4,25 +4,36 @@ import java.util.Scanner;
 public class Main {
     private Piece white;
     private Piece black;
-    //winCondition will search the list for pawns of each colour and return whether the game is over and will print who won
+	private Player whitePlayerName;
+	private Player blackPlayerName;
+    //winCondition will search the list for pawns of each color and return whether the game is over and will print who won
 
-    public boolean winCondition(ArrayList){
+    public boolean winCondition( ArrayList<Piece> arraylist){
         boolean win = false;
         boolean whiteWin = arraylist.contains('P');
         boolean blackWin = arraylist.contains('p');
-        if (whiteWin == false && blackWin == false){
-            win = true;
-            System.out.println("You have tied! Play again?");
+        
+        if (whiteWin == true && blackWin == true){
+            
+        	win = true;
+            
+        	System.out.println("You have tied! Play again?");
             return win;
         }
-        else if(whiteWin == true && blackWin == false){
-            win = true;
-            System.out.println("PLayer White has won! Play again?");
+        
+        else if(whiteWin == false && blackWin == true){
+            
+        	win = true;
+            
+        	System.out.println("Player White has won! Play again?");
             return win;
         }
-        else if(whiteWin == false && blackWin == true) {
-            win = true;
+        
+        else if(whiteWin == true && blackWin == false) {
+            
+        	win = true;
             System.out.println("Player Black has won! Play again?");
+            
             return win;
         }
         else{
@@ -30,70 +41,90 @@ public class Main {
         }
     }
 
-    public void main(String args[]) {
+    public void startGame() {
         System.out.print("Player 1 enter your name: ");
         Scanner keyboard = new Scanner(System.in);
         String whitePlayerName = keyboard.nextLine();
 
-        setWhitePlayerName(whitePlayerName);
+        Player.setWhitePlayerName(whitePlayerName);
 
         System.out.print("Player 2 enter your name: ");
         String blackPlayerName = keyboard.nextLine();
 
-        setBlackPlayerName(blackPlayerName);
-        intilializeBoard();
-        initializePeices();
-
-        while (winCondition(Pieces) == false) {
+        Player.setBlackPlayerName(blackPlayerName);
+        
+        Board.initializePieces();
+        }
+    
+    public void runGame(ArrayList<Piece> pieces) {
+    
+     while (winCondition(pieces) == false) {
             boolean isWhitesMoveLegal = false;
             boolean isBlacksMoveLegal = false;
-            Piece whiteSelectedPiece = "P1";
-            Piece blackSelectedPiece = "p1";
-            Coord whiteMovementCoord = (0,0);
-            Coord blackMovementCoord = (0,0);
+            String whiteSelectedPiece;
+            String blackSelectedPiece;
+            Coord whiteMovementCoord = null;
+            Coord blackMovementCoord = null;
+            Scanner keyboard = new Scanner(System.in);
 
             while (isWhitesMoveLegal == false) {
                 System.out.print("White player select a piece: ");
-                whiteSelectedPiece = keyboard.nextPiece();
-                this.white = getPiece(whiteSelectedPiece);
+                
+                whiteSelectedPiece = keyboard.nextLine();
+                white = whiteSelectedPiece.getPiece();
 
                 System.out.print("Where would you like to move the piece: ");
-                whiteMovementCoord = keyboard.nextCoord();
+                int whiteMovementX = keyboard.nextInt();
+                whiteMovementCoord.setX(whiteMovementX);
+                
+                System.out.print("Where would you like to move the piece: ");
+                int whiteMovementY = keyboard.nextInt();
+                whiteMovementCoord.setY(whiteMovementY);
+               
+               
 
-                isWhitesMoveLegal = legalMove(this.white, whiteMovementCoord);
+                isWhitesMoveLegal = Movement.legalMove(white, whiteMovementCoord, null);
             }
 
             while (isBlacksMoveLegal == false) {
                 System.out.print("Black player select a piece: ");
-                blackSelecetedPeice = keyboard.nextPiece();
-                this.black = getPiece(blackSelectedPiece);
+                blackSelectedPiece = keyboard.nextLine();
+                black = Piece.getPiece(blackSelectedPiece);
 
                 System.out.print("Where would you like to move the piece: ");
-                blackMovementCoord = keyboard.nextCoord();
+                int blackMovementX = keyboard.nextInt();
+                blackMovementCoord.setXCoord(blackMovementX);
+                
+                System.out.print("Where would you like to move the piece: ");
+                int blackMovementY = keyboard.nextInt();
+                blackMovementCoord.setYCoord(blackMovementY);
 
-                isBlacksMoveLegal = legalMove(this.black, blackMovementCoord);
+                isBlacksMoveLegal = Movement.legalMove(black, blackMovementCoord, null);
             }
-            if (whiteMovementCoord == blackMovementCoord && this.white.type == this.black.type){
-                this.white.state = dead;
-                this.black.state = dead;
+            if (whiteMovementCoord == blackMovementCoord && white.getType() == black.getType()){
+            	pieces.remove(white);
+            	pieces.remove(black);
             }
-            else if(whiteMovementCoord == blackMovementCoord && this.white.type =! this.black.type){
-                if(this.white.type == pawn && this.black.type == knight) {
-                    this.white.state = dead;
-                    movePiece(this.black, blackMovementCoord);
-                    piece.remove(this.white);
+            else if(whiteMovementCoord == blackMovementCoord && (white.getType() != black.getType())){
+                if(white.getType() == "pawn" && black.getType() == "knight") {
+                    Movement.movePiece(black, blackMovementCoord);
+                    pieces.remove(white);
                 }
                 else {
-                    this.black.state = dead;
-                    movePiece(this.white, whiteMovementCoord);
-                    piece.remove(this.black);
+                    Movement.movePiece(white, whiteMovementCoord);
+                    pieces.remove(black);
                 }}
             else {
-                movePiece(this.white, whiteMovementCoord);
-                movePiece(this.black, blackMovementCoord);
+                Movement.movePiece(white, whiteMovementCoord);
+                Movement.movePiece(black, blackMovementCoord);
             }
 
 
 
 
-    }}}
+    }}
+
+	public static void main(String args[]) {
+		startGame();
+		runGame(Piece.getCurrentListOfPieces());
+	}}
