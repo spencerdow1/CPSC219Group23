@@ -1,3 +1,4 @@
-# CPSC219Group23
-Project for 219
-helloworld
+# THIS READ ME IS TERRIBLE
+REEEAAD MEEEEE
+
+- group 23
