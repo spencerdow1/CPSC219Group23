@@ -2,65 +2,102 @@ import java.util.ArrayList;
 
 public class Board {
 
-	private Piece piece;
-	private ArrayList<Piece> pieces = new ArrayList<Piece>();
+	private static Piece[][] currentBoard;
+	private static Piece retreivedPiece;
 
+	// creates new board
 	public Board() {
-		Piece tempPiece = new Piece();
-		this.piece = tempPiece;
-	}
-
-	public Board(Piece piece) {
-		this.piece = piece;
+		currentBoard = new Piece[5][5];
 
 	}
+
+	public Board(ArrayList<Piece> alivePieces) {
+
+		currentBoard = new Piece[5][5];
+
+		for (Piece aPiece : alivePieces) {
+			Coord location = aPiece.getPosition();
+			setPiece(aPiece, location);
+		}
+	}
+
 	// inititalizing the pieces
-	public void initializePieces(){
-    // change black to lower case and white to upper
+	public void initializePieces() {
 		Coord initializer = new Coord(1, 0);
-		pieces.add(new Piece ("pawn", "black", initializer, "P2"));
+		currentBoard[1][0] = new Piece("pawn", "black", initializer, "p2");
 		initializer = new Coord(2, 0);
-	    pieces.add(new Piece ("pawn", "black", initializer, "P3"));
+		currentBoard[2][0] = new Piece("pawn", "black", initializer, "p3");
 		initializer = new Coord(3, 0);
-	    pieces.add(new Piece ("pawn", "black", initializer, "P4"));
+		currentBoard[3][0] = new Piece("pawn", "black", initializer, "p4");
 		initializer = new Coord(0, 0);
-	    pieces.add(new Piece ("knight", "black", initializer, "K1"));
+		currentBoard[0][0] = new Piece("knight", "black", initializer, "k1");
 		initializer = new Coord(0, 4);
-     	pieces.add(new Piece ("knight", "black", initializer, "K2"));
+		currentBoard[0][4] = new Piece("knight", "black", initializer, "k2");
 		initializer = new Coord(0, 1);
-     	pieces.add(new Piece ("pawn", "black", initializer, "P1"));
+		currentBoard[0][1] = new Piece("pawn", "black", initializer, "p1");
 		initializer = new Coord(4, 1);
-     	pieces.add(new Piece ("pawn", "black", initializer, "P5"));
+		currentBoard[4][1] = new Piece("pawn", "black", initializer, "p5");
 		initializer = new Coord(0, 3);
-     	pieces.add(new Piece ("pawn", "white", initializer, "p1"));
+		currentBoard[0][3] = new Piece("pawn", "white", initializer, "P1");
 		initializer = new Coord(4, 3);
-     	pieces.add(new Piece ("pawn", "white", initializer, "p5")); 
+		currentBoard[4][3] = new Piece("pawn", "white", initializer, "P5");
 		initializer = new Coord(0, 4);
-     	pieces.add(new Piece ("knight", "white", initializer, "k1"));
+		currentBoard[0][4] = new Piece("knight", "white", initializer, "K1");
 		initializer = new Coord(4, 4);
-     	pieces.add(new Piece ("pawn", "white", initializer, "k2"));
+		currentBoard[4][4] = new Piece("pawn", "white", initializer, "K2");
 		initializer = new Coord(1, 4);
-     	pieces.add(new Piece ("pawn", "white", initializer, "p2"));
+		currentBoard[1][4] = new Piece("pawn", "white", initializer, "P2");
 		initializer = new Coord(2, 4);
-     	pieces.add(new Piece ("pawn", "white", initializer, "p3"));
+		currentBoard[2][4] = new Piece("pawn", "white", initializer, "P3");
 		initializer = new Coord(3, 4);
-     	pieces.add(new Piece ("pawn", "white", initializer, "p4"));
-
-
-	}
-
-//make methods that can test different pieces on the board ex. two knights going to the same spot
-//
-
-	public void changePieceLocation(Piece pieceToChange){
-		Coord storeMovementCoord = pieceToChange.getMovementCoord();
-		Coord resetMovementCoord = new Coord(0, 0);
-		
-		pieceToChange.setMovementCoord(resetMovementCoord);
-		pieceToChange.setPosition(storeMovementCoord);
+		currentBoard[3][4] = new Piece("pawn", "white", initializer, "P4");
 
 	}
 
+	public Piece getPiece(Coord aCoord) {
+		int someX = aCoord.x;
+		int someY = aCoord.y;
+
+		if (currentBoard[someX][someY] != null) {
+			retreivedPiece = currentBoard[someX][someY];
+		} else {
+			retreivedPiece = null;
+		}
+
+		return retreivedPiece;
+	}
+
+	public static Piece getPieceByName(String selectedPieceName) {
+		Piece selectedPiece = null;
+
+		for (int i = 0; i < alivepieces.size(); i++) {
+			if (selectedPieceName == retreivedPiece.getName(alivepieces().get(i))) {
+				selectedPiece = alivePieces.get(i);
+			}
+
+			else {
+				selectedPiece = null;
+			}
+		}
+		return selectedPiece;
+	}
+
+	public void setPiece(Piece aPiece, Coord aCoord) {
+
+		currentBoard[aCoord.x][aCoord.y] = aPiece;
+	}
 
 }
 
+/*
+ * public void changePieceLocation(Piece pieceToChange) { Coord
+ * storeMovementCoord = pieceToChange.getMovementCoord(); Coord
+ * resetMovementCoord = new Coord(0, 0);
+ *
+ * pieceToChange.setMovementCoord(resetMovementCoord);
+ * pieceToChange.setPosition(storeMovementCoord);
+ *
+ * }
+ *
+ * }
+ */
