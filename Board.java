@@ -5,6 +5,7 @@ public class Board {
 	private Piece[][] currentBoard;
 	private Piece retreivedPiece;
 
+	// creates new board
 	public Board() {
 		currentBoard = new Piece[5][5];
 	}
@@ -52,12 +53,6 @@ public class Board {
 
 	}
 
-	public void setPiece(Piece aPiece, Coord aCoord) {
-
-		currentBoard[aCoord.x][aCoord.y] = aPiece;
-
-	}
-
 	public Piece getPiece(Coord aCoord) {
 		int someX = aCoord.x;
 		int someY = aCoord.y;
@@ -71,17 +66,37 @@ public class Board {
 		return retreivedPiece;
 	}
 
+	public static Piece getPieceByName(String selectedPieceName) {
+		Piece selectedPiece = null;
+
+		for (int i = 0; i < pieces.size(); i++) {
+			if (selectedPieceName == Piece.getName(pieces.get(i))) {
+				selectedPiece = pieces.get(i);
+			}
+
+			else {
+				selectedPiece = null;
+			}
+		}
+		return selectedPiece;
+	}
+
+	public void setPiece(Piece aPiece, Coord aCoord) {
+
+		currentBoard[aCoord.x][aCoord.y] = aPiece;
+	}
+
 }
 
 /*
  * public void changePieceLocation(Piece pieceToChange) { Coord
  * storeMovementCoord = pieceToChange.getMovementCoord(); Coord
  * resetMovementCoord = new Coord(0, 0);
- * 
+ *
  * pieceToChange.setMovementCoord(resetMovementCoord);
  * pieceToChange.setPosition(storeMovementCoord);
- * 
+ *
  * }
- * 
+ *
  * }
  */
