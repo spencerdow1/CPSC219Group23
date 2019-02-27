@@ -2,12 +2,13 @@ import java.util.ArrayList;
 
 public class Board {
 
-	private Piece[][] currentBoard;
-	private Piece retreivedPiece;
+	private static Piece[][] currentBoard;
+	private static Piece retreivedPiece;
 
 	// creates new board
 	public Board() {
 		currentBoard = new Piece[5][5];
+
 	}
 
 	public Board(ArrayList<Piece> alivePieces) {
@@ -69,9 +70,9 @@ public class Board {
 	public static Piece getPieceByName(String selectedPieceName) {
 		Piece selectedPiece = null;
 
-		for (int i = 0; i < pieces.size(); i++) {
-			if (selectedPieceName == Piece.getName(pieces.get(i))) {
-				selectedPiece = pieces.get(i);
+		for (int i = 0; i < alivepieces.size(); i++) {
+			if (selectedPieceName == retreivedPiece.getName(alivepieces().get(i))) {
+				selectedPiece = alivePieces.get(i);
 			}
 
 			else {
