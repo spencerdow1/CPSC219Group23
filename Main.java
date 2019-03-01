@@ -32,6 +32,13 @@ public class Main {
 
     public static void main(String[] args){
         Main newGame = new Main();
+        System.out.println("Welcome to the Apocalypse Game!");
+        System.out.println("Players will set their username");
+        System.out.println("then they will take turns selecting moves to make");
+        System.out.println("getting your pawn to the other side of the board will turn it into a knight");
+        System.out.println("but the first player to lose all of their pawn loses!");
+        System.out.println("be careful unlike normal chess both players moves will execute at the same time!");
+        System.out.println("okay its time to play good luck have fun!");
         newGame.runGame();
 
 
