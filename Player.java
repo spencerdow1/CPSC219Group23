@@ -1,23 +1,25 @@
-
 public class Player {
-	
-	private static String whiteName;
-	private static String blackName;
+        PlayerTeam playerTeam;
+        String playerName = null;
 
-	public String getWhitePlayerName() {
-		return whiteName;
-	}
+        public Player(PlayerTeam playerTeam){
+            this.playerTeam = playerTeam;
+        }
 
-	public static void setWhitePlayerName(String whitePlayerName) {
-		whitePlayerName = whiteName;
-	}
+    public PlayerTeam getPlayerTeam() {
+        return playerTeam;
+    }
 
-	public String getBlackPlayerName() {
-		return blackName;
-	}
+    public String getPlayerName() {
+        return playerName;
+    }
 
-	public static void setBlackPlayerName(String blackPlayerName) {
-		blackPlayerName = blackName;
-	}
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+    public String playerToString(){
+            return this.playerTeam + " " + this.playerName;
+    }
+
 
 }
