@@ -26,7 +26,7 @@ Board.Java initializes the starting game board, takes user input runs movement a
 Main.java initializes with user input the players and runs the game
 
 ### Prerequisites
-Java
+Java.
 Files included in this pakage
 
 ### Get Started
