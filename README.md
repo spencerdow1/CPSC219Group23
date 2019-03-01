@@ -2,10 +2,8 @@
 
 CPSC 219 Group 23
 
-Coord.java, Knight.java, Main.java, Pawn.java, Piece.java, PieceType.java, Player.java, PlayerTeam.java, Space.java 
-
-#######################################################################################################################
 ## Files
+Coord.java, Knight.java, Main.java, Pawn.java, Piece.java, PieceType.java, Player.java, PlayerTeam.java, Space.java 
 
 Coord.java creates coordaninates used throught the program to refrence specific spaces
 
