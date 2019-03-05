@@ -27,21 +27,18 @@ public class Pawn extends Piece {
         //used for normal pawn movement
         else if (this.getPieceType() != null) {
             if (this.getPlayer() == PlayerTeam.White) {
-                if(checkSpaces[desiredX][desiredY].emptySpace()){
                     if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
-                            && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 0 )
-                    {
+                            && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 0) {
 
                         if (currentPosition.getYCoord() < desiredPosition.getYCoord()) {
                             isValid = true;
                         }
                     }
-                    }
                     //used if pawns can capture
                     if (!checkSpaces[desiredX][desiredY].emptySpace()) {
 
                         if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
-                            && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 1 ){
+                            && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 1) {
 
                             isValid = true;
 
@@ -59,11 +56,9 @@ public class Pawn extends Piece {
                             isValid = true;
                         }
                     }
-                }
-                else if (!checkSpaces[desiredX][desiredY].emptySpace()) {
+                } else if (!checkSpaces[desiredX][desiredY].emptySpace()) {
                     if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
-                            && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 1 )
-                    {
+                            && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 1) {
                         isValid = true;
                     }
                 }
