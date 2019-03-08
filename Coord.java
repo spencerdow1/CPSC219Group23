@@ -8,14 +8,6 @@ public class Coord {
 
     }
 
-    public boolean Valid() {
-        if ((x >= 0 && x < 5)
-                && (y >= 0 && y < 5)) {
-            return true;
-        }
-        return false;
-    }
-
     public int getXCoord() {
         return x;
     }

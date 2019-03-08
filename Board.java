@@ -18,16 +18,8 @@ public class Board {
 
     // takes in a coordinate and matches it with the correct space
     public Space getSpace(Coord coordinate){
-        Space result = null;
-        for (int x = 0; x < 5; x++){
-            for(int y = 0; y < 5; y++){
-                if (board[x][y].getCoord() == coordinate ){
-                    result = board[x][y];
-                }
+        Space result = board[coordinate.getXCoord()][coordinate.getYCoord()];
 
-            }
-
-        }
         return result;
     }
 
@@ -36,8 +28,8 @@ public class Board {
     }
 
     //used for capture takes in a Space and clears it
-    public void Capture(Space board){
-        if(board.emptySpace()){
+    public void capture(Space board){
+        if(board.filledSpace()){
             board.removePiece();
         }
     }
@@ -54,13 +46,13 @@ public class Board {
                   if(currentCheckPiece != null){
 
                       if(currentCheckPiece.getPieceType() == PieceType.Pawn &&
-                              currentCheckPiece.getPlayer() == PlayerTeam.White
+                              currentCheckPiece.getPlayerTeam() == PlayerTeam.White
                               && currentCheckSpace.getCoord().getYCoord() == 4){
 
                           setPiece(currentCheckSpace.getCoord(),new Knight(PlayerTeam.White));
                       }
                       else if(currentCheckPiece.getPieceType() == PieceType.Pawn &&
-                                   currentCheckPiece.getPlayer() == PlayerTeam.Black
+                                   currentCheckPiece.getPlayerTeam() == PlayerTeam.Black
                                    && currentCheckSpace.getCoord().getYCoord() == 0){
 
                           setPiece(currentCheckSpace.getCoord(),new Knight(PlayerTeam.Black));
@@ -76,9 +68,9 @@ public class Board {
 
     //Sets piece to new position and removes it from the old one
 
-    public void Move(Space currentPosition, Space desiredPosition){
-        if (desiredPosition.emptySpace() == false){
-            Capture(desiredPosition);
+    public void move(Space currentPosition, Space desiredPosition){
+        if (desiredPosition.filledSpace() == false){
+            capture(desiredPosition);
         }
         desiredPosition.setPiece(currentPosition.getPiece());
         currentPosition.removePiece();
@@ -100,12 +92,12 @@ public class Board {
         }
         else if(desiredPositionWhite == currentPositionBlack || desiredPositionBlack == currentPositionWhite ){
             if(desiredPositionWhite == currentPositionBlack){
-                Move(currentPositionBlack, desiredPositionBlack);
-                Move(currentPositionWhite, desiredPositionWhite);
+                move(currentPositionBlack, desiredPositionBlack);
+                move(currentPositionWhite, desiredPositionWhite);
             }
             else if(desiredPositionBlack == currentPositionWhite){
-                Move(currentPositionWhite, desiredPositionWhite);
-                Move(currentPositionBlack, desiredPositionBlack);
+                move(currentPositionWhite, desiredPositionWhite);
+                move(currentPositionBlack, desiredPositionBlack);
             }
         }
         else if (desiredPositionWhite == desiredPositionBlack){
@@ -117,18 +109,18 @@ public class Board {
                 if (currentPositionWhite.getPiece().getPieceType() == PieceType.Pawn &&
                         currentPositionBlack.getPiece().getPieceType() == PieceType.Knight){
                     currentPositionWhite.removePiece();
-                    Move(currentPositionBlack,desiredPositionBlack);
+                    move(currentPositionBlack,desiredPositionBlack);
                 }
                 else if(currentPositionWhite.getPiece().getPieceType() == PieceType.Knight &&
                         currentPositionBlack.getPiece().getPieceType() == PieceType.Pawn){
-                    Move(currentPositionWhite,desiredPositionWhite);
+                    move(currentPositionWhite,desiredPositionWhite);
                     currentPositionBlack.removePiece();
                 }
             }
         }
         else{
-            Move(currentPositionWhite,desiredPositionWhite);
-            Move(currentPositionBlack, desiredPositionBlack);
+            move(currentPositionWhite,desiredPositionWhite);
+            move(currentPositionBlack, desiredPositionBlack);
         }
     }
 
@@ -195,14 +187,14 @@ public class Board {
 
                             if (currentSpace.getPiece() != null) {
 
-                                if (currentSpace.getPiece().getPlayer() == PlayerTeam.White ){
+                                if (currentSpace.getPiece().getPlayerTeam() == PlayerTeam.White ){
 
                                     if (currentSpace.getPiece().validateMove(currentSpace.getCoord(), checkSpace.getCoord(), currentBoard)) {
                                         countWhite = countWhite + 1;
                                     }
 
                                 }
-                                else if(currentSpace.getPiece().getPlayer() == PlayerTeam.Black){
+                                else if(currentSpace.getPiece().getPlayerTeam() == PlayerTeam.Black){
 
                                     if (currentSpace.getPiece().validateMove(currentSpace.getCoord(), checkSpace.getCoord(), currentBoard)) {
                                         countBlack = countBlack + 1;
@@ -245,7 +237,7 @@ public class Board {
                 Piece currentCheckPiece = currentCheckSpace.getPiece();;
                 if (currentCheckPiece != null) {
                     desiredPieceType = currentCheckPiece.getPieceType();
-                    desiredPlayerTeam = currentCheckPiece.getPlayer();
+                    desiredPlayerTeam = currentCheckPiece.getPlayerTeam();
                     if (desiredPieceType == PieceType.Pawn && desiredPlayerTeam == PlayerTeam.White) {
                         whitePawns = whitePawns + 1;
                     }
@@ -271,11 +263,23 @@ public class Board {
         return false;
     }
 
+    public PlayerTeam moveCorrectColorPiece(Space currentPosition){
+        PlayerTeam colorOfPiece = null;
+        if (currentPosition.getPiece() != null){
+            if (currentPosition.getPiece().getPlayerTeam() == PlayerTeam.White){
+                colorOfPiece = PlayerTeam.White;
+            }
+            else if(currentPosition.getPiece().getPlayerTeam() == PlayerTeam.Black){
+                colorOfPiece = PlayerTeam.Black;
+            }
+        }
+         return colorOfPiece;
+    }
 
 
     //Initializes and movement
     public void moveWithUserInput(Board currentBoard){
-        Space currentPositionWhite = board[0][0];
+        Space currentPositionWhite = board[2][2];
         Space desiredPositionWhite = board[0][0];
         Piece selectedPieceWhite = null;
         Space currentPositionBlack = board[0][0];
@@ -288,6 +292,7 @@ public class Board {
         while(!winCondition(currentBoard)) {
             //gets input from white player and checks to see if its valid
             boolean possibleMove = false;
+            boolean rightColor = false;
             int currentPositionWhiteX;
             int currentPositionWhiteY;
             int currentPositionBlackX;
@@ -298,7 +303,7 @@ public class Board {
             int desiredPositionBlackY;
 
 
-            while (!possibleMove) {
+            while (!possibleMove && !rightColor ) {
                 // This takes in a string from the user, and takes all the integers
                 // it finds. The first two integers found are added to the array
                 // and then the x and y coordinates are set from there. Otherwise
@@ -338,8 +343,10 @@ public class Board {
                 desiredPositionWhiteY = coordArray.get(1);
                 desiredPositionWhite = board[desiredPositionWhiteX][desiredPositionWhiteY];
 
+
                 if (selectedPieceWhite!=null){
-                    if (selectedPieceWhite.validateMove(currentPositionWhite.getCoord(), desiredPositionWhite.getCoord(), currentBoard)){
+                    if (selectedPieceWhite.validateMove(currentPositionWhite.getCoord(), desiredPositionWhite.getCoord(), currentBoard)
+                    && moveCorrectColorPiece(currentPositionWhite) == PlayerTeam.White){
                     possibleMove = true;
                     }
                     else System.out.println("The move you have entered is not valid please try again");
@@ -352,7 +359,8 @@ public class Board {
 
 
             possibleMove = false;
-            while (!possibleMove) {
+            rightColor = false;
+            while (!possibleMove && !rightColor ) {
                 //Take input from player two and checks if its valid
                 System.out.print("Black player select coordinate of the PIECE (x,y): ");
                 String blackPosStr = keyboard.nextLine(); 
@@ -388,7 +396,8 @@ public class Board {
                 desiredPositionBlack = board[desiredPositionBlackX][desiredPositionBlackY];
 
                 if (selectedPieceBlack!=null){
-                    if (selectedPieceBlack.validateMove(currentPositionBlack.getCoord(), desiredPositionBlack.getCoord(), currentBoard)){
+                    if (selectedPieceBlack.validateMove(currentPositionBlack.getCoord(), desiredPositionBlack.getCoord(), currentBoard )&&
+                    moveCorrectColorPiece(currentPositionBlack) == PlayerTeam.Black){
                         possibleMove = true;
                     }
                     else System.out.println("The move you have entered is not valid please try again");

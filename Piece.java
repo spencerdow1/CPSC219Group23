@@ -16,7 +16,7 @@ public abstract class Piece {
         return pieceType;
     }
 
-    public PlayerTeam getPlayer() {
+    public PlayerTeam getPlayerTeam() {
         return player;
     }
 

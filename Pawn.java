@@ -26,8 +26,8 @@ public class Pawn extends Piece {
         }
         //used for normal pawn movement
         else if (this.getPieceType() != null) {
-            if (this.getPlayer() == PlayerTeam.White) {
-                if(checkSpaces[desiredX][desiredY].emptySpace()){
+            if (this.getPlayerTeam() == PlayerTeam.White) {
+                if(checkSpaces[desiredX][desiredY].filledSpace()){
                     if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
                             && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 0 )
                     {
@@ -38,7 +38,7 @@ public class Pawn extends Piece {
                     }
                     }
                     //used if pawns can capture
-                    if (!checkSpaces[desiredX][desiredY].emptySpace()) {
+                    if (!checkSpaces[desiredX][desiredY].filledSpace()) {
 
                         if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
                             && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 1 ){
@@ -51,8 +51,8 @@ public class Pawn extends Piece {
 
             }
             //Movement possibilities for black pawn
-            else if (this.getPlayer() == PlayerTeam.Black) {
-                if (checkSpaces[desiredX][desiredY].emptySpace()) {
+            else if (this.getPlayerTeam() == PlayerTeam.Black) {
+                if (checkSpaces[desiredX][desiredY].filledSpace()) {
                     if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
                             && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 0) {
                         if (currentPosition.getYCoord() > desiredPosition.getYCoord()) {
@@ -60,7 +60,7 @@ public class Pawn extends Piece {
                         }
                     }
                 }
-                else if (!checkSpaces[desiredX][desiredY].emptySpace()) {
+                else if (!checkSpaces[desiredX][desiredY].filledSpace()) {
                     if (abs(currentPosition.getYCoord() - desiredPosition.getYCoord()) == 1
                             && abs(currentPosition.getXCoord() - desiredPosition.getXCoord()) == 1 )
                     {
