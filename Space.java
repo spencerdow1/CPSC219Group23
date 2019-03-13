@@ -7,6 +7,11 @@ public class Space {
         this.coordinate = coordinate;
     }
 
+    public Space(Coord coordinate, Piece piece){
+        this.coordinate = coordinate;
+        this.piece = piece;
+    }
+
     public Coord getCoord() {
         return coordinate;
     }
@@ -23,8 +28,22 @@ public class Space {
         this.piece = null;
     }
 
+    public String getDisplay(){
+        if (piece != null){
+            return piece.toString();
+        }
+        else return " ";
 
-    public boolean filledSpace(){
+    }
+
+    public boolean isSpaceValid(){
+        if (this.getCoord().Valid()) {
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean emptySpace(){
         if (piece != null){
             return false;
         }
