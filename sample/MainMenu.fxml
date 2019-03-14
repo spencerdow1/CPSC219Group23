@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MainController">
+   <children>
+      <TextField fx:id="one" layoutX="59.0" layoutY="119.0" promptText="Player one name" visible="false" />
+      <TextField fx:id="two" layoutX="276.0" layoutY="119.0" promptText="Player two name" visible="false" />
+      <ChoiceBox fx:id="mode" layoutX="171.0" layoutY="54.0" prefWidth="150.0" />
+      <Text fill="RED" layoutX="133.0" layoutY="46.0" pickOnBounds="true" stroke="#030000" strokeType="OUTSIDE" strokeWidth="0.0" text="Apocalypse" textAlignment="CENTER">
+         <font>
+            <Font name="Algerian" size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="start" layoutX="156.0" layoutY="305.0" mnemonicParsing="false" onAction="#initialize" text="Start Game" textFill="#ff0101">
+         <font>
+            <Font name="Algerian" size="24.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+      <ChoiceBox fx:id="difficulty" layoutX="171.0" layoutY="198.0" prefWidth="150.0" visible="false" />
+   </children>
+</Pane>
