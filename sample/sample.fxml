@@ -53,7 +53,7 @@
             <Rectangle fx:id="rectangle251" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" />
          </children>
       </GridPane>
-      <GridPane fx:id="currentBoard" alignment="BOTTOM_CENTER" gridLinesVisible="true" layoutX="130.0" layoutY="130.0" prefHeight="250.0" prefWidth="250.0">
+      <GridPane fx:id="currentBoard" alignment="BOTTOM_CENTER" gridLinesVisible="true" layoutX="130.0" layoutY="130.0" onMouseClicked="#initialize" prefHeight="250.0" prefWidth="250.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

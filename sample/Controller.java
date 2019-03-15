@@ -1,7 +1,9 @@
 package sample;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -9,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
@@ -19,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -78,6 +82,8 @@ public class Controller {
     public Rectangle rectangle24;
     @FXML
     public Rectangle rectangle25;
+    @FXML
+    public GridPane currentBoard;
 
     public Controller() throws IOException {
     }
@@ -117,7 +123,7 @@ public class Controller {
     }
 
 
-    public void UpdateGUIBoard(Space[][] board, ArrayList<Rectangle> list){
+    public static void UpdateGUIBoard(Space[][] board, ArrayList<Rectangle> list){
         Image imageWhiteKnight = new Image("/sample/WhiteK.png");
         Image imageBlackKnight = new Image("/sample/BlackK.png");
         Image imageWhitePawn = new Image("/sample/WhiteP.png");
@@ -165,18 +171,16 @@ public class Controller {
 
 
     public void initialize() throws IOException {
-        MainController mainController = new MainController();
-        //whitePlayer.setText(mainController.getOne());
 
-        //blackPlayer.setText(mainController.getTwo());
-
-        ArrayList<Rectangle> list = createListOfSpaces();
-        Board gameBoard = null;
+        ArrayList<Rectangle> list = createListOfSpaces();;
+        Board gameBoard = new Board();
         try {
             gameBoard = new Board();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+        clearRectangles(list);
         UpdateGUIBoard(gameBoard.board, list);
+
     }
 }

@@ -1,8 +1,11 @@
 package sample;
 
+import javafx.embed.swing.JFXPanel;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -138,31 +141,31 @@ public class Board {
         for (int x = 0; x < 5; x++) {
 
             for (int y = 0; y < 5; y++) {
-                board[x][y] = new Space(new Coord(x, y));
+                this.board[x][y] = new Space(new Coord(x, y));
             }
         }
     }
 
     //creates new white pieces and places them on the board
     private void initializeWhite(){
-        board[0][0].setPiece(new Knight(PlayerTeam.White));
-        board[0][1].setPiece(new Pawn(PlayerTeam.White));
-        board[1][0].setPiece(new Pawn(PlayerTeam.White));
-        board[2][0].setPiece(new Pawn(PlayerTeam.White));
-        board[3][0].setPiece(new Pawn(PlayerTeam.White));
-        board[4][0].setPiece(new Knight(PlayerTeam.White));
-        board[4][1].setPiece(new Pawn(PlayerTeam.White));
+        this.board[0][0].setPiece(new Knight(PlayerTeam.White));
+        this.board[0][1].setPiece(new Pawn(PlayerTeam.White));
+        this.board[1][0].setPiece(new Pawn(PlayerTeam.White));
+        this.board[2][0].setPiece(new Pawn(PlayerTeam.White));
+        this.board[3][0].setPiece(new Pawn(PlayerTeam.White));
+        this.board[4][0].setPiece(new Knight(PlayerTeam.White));
+        this.board[4][1].setPiece(new Pawn(PlayerTeam.White));
     }
     //create new black pieces and puts them on the board
     private void initializeBlack(){
 
-        board[0][3].setPiece(new Pawn(PlayerTeam.Black));
-        board[0][4].setPiece(new Knight(PlayerTeam.Black));
-        board[1][4].setPiece(new Pawn(PlayerTeam.Black));
-        board[2][4].setPiece(new Pawn(PlayerTeam.Black));
-        board[3][4].setPiece(new Pawn(PlayerTeam.Black));
-        board[4][4].setPiece(new Knight(PlayerTeam.Black));
-        board[4][3].setPiece(new Pawn(PlayerTeam.Black));
+        this.board[0][3].setPiece(new Pawn(PlayerTeam.Black));
+        this.board[0][4].setPiece(new Knight(PlayerTeam.Black));
+        this.board[1][4].setPiece(new Pawn(PlayerTeam.Black));
+        this.board[2][4].setPiece(new Pawn(PlayerTeam.Black));
+        this.board[3][4].setPiece(new Pawn(PlayerTeam.Black));
+        this.board[4][4].setPiece(new Knight(PlayerTeam.Black));
+        this.board[4][3].setPiece(new Pawn(PlayerTeam.Black));
     }
 
     //print out current state of the board
@@ -288,7 +291,7 @@ public class Board {
 
 
     //Initializes and movement
-    /*public void moveWithUserInput(Board currentBoard){
+    public void moveWithUserInput(Board currentBoard, ArrayList<Rectangle> list) throws IOException {
         Space currentPositionWhite = board[2][2];
         Space desiredPositionWhite = board[0][0];
         Piece selectedPieceWhite = null;
@@ -318,8 +321,8 @@ public class Board {
                 // it finds. The first two integers found are added to the array
                 // and then the x and y coordinates are set from there. Otherwise
                 // this works exactly as before.
-                System.out.print("White player select coordinate of the PIECE (x,y): ");
-                String whitePosStr = keyboard.nextLine(); 
+                JFrame white = new JFrame();
+                String whitePosStr = JOptionPane.showInputDialog(white, "Please enter the coordinate of the piece you would like to move(x,y): ");
                 char[] inputArray = whitePosStr.toCharArray();
 
                 ArrayList<Integer> coordArray = new ArrayList<Integer>();
@@ -337,8 +340,8 @@ public class Board {
                 currentPositionWhite = board[currentPositionWhiteX][currentPositionWhiteY];
                 selectedPieceWhite = currentPositionWhite.getPiece();
 
-                System.out.print("White player select coordinate of the MOVE (x,y): ");
-                String whiteMoveStr = keyboard.nextLine(); 
+                white = new JFrame();
+                String whiteMoveStr = JOptionPane.showInputDialog(white, "Please enter the coordinate of the space you would like to move to(x,y): ");
                 inputArray = whiteMoveStr.toCharArray();
 
                 coordArray = new ArrayList<Integer>();
@@ -354,10 +357,12 @@ public class Board {
                 desiredPositionWhite = board[desiredPositionWhiteX][desiredPositionWhiteY];
 
 
+
                 if (selectedPieceWhite!=null){
                     if (selectedPieceWhite.validateMove(currentPositionWhite.getCoord(), desiredPositionWhite.getCoord(), currentBoard)
                     && moveCorrectColorPiece(currentPositionWhite) == PlayerTeam.White){
                     possibleMove = true;
+                    rightColor = true;
                     }
                     else System.out.println("The move you have entered is not valid please try again");
                     }
@@ -372,8 +377,8 @@ public class Board {
             rightColor = false;
             while (!possibleMove && !rightColor ) {
                 //Take input from player two and checks if its valid
-                System.out.print("Black player select coordinate of the PIECE (x,y): ");
-                String blackPosStr = keyboard.nextLine(); 
+                JFrame black = new JFrame();
+                String blackPosStr = JOptionPane.showInputDialog(black,"Please enter the coordinate of the piece you would like to move(x,y): " );
                 char[] inputArray = blackPosStr.toCharArray();
 
                 ArrayList<Integer> coordArray = new ArrayList<Integer>();
@@ -389,8 +394,8 @@ public class Board {
                 currentPositionBlack = board[currentPositionBlackX][currentPositionBlackY];
                 selectedPieceBlack = currentPositionBlack.getPiece();
 
-                System.out.print("Black player select coordinate of the MOVE (x,y): ");
-                String blackMoveStr = keyboard.nextLine(); 
+                black = new JFrame();
+                String blackMoveStr = JOptionPane.showInputDialog(black,"Please enter the coordinate of the piece you would like to move(x,y): " );
                 inputArray = blackMoveStr.toCharArray();
 
                 coordArray = new ArrayList<Integer>();
@@ -409,6 +414,7 @@ public class Board {
                     if (selectedPieceBlack.validateMove(currentPositionBlack.getCoord(), desiredPositionBlack.getCoord(), currentBoard )&&
                     moveCorrectColorPiece(currentPositionBlack) == PlayerTeam.Black){
                         possibleMove = true;
+                        rightColor = true;
                     }
                     else System.out.println("The move you have entered is not valid please try again");
                 }
@@ -424,120 +430,15 @@ public class Board {
 
             simultaneousMove(currentPositionWhite, desiredPositionWhite, currentPositionBlack, desiredPositionBlack);
 
+
                 checkUpgrade();
-                printCurrentBoard();
+                Controller cont = new Controller();
+
 
 
             }
 
-    }*/
-    public void moveWithUserInput(Board currentBoard) throws IOException {
-        Space currentPositionWhite = board[2][2];
-        Space desiredPositionWhite = board[0][0];
-        Piece selectedPieceWhite = null;
-        Space currentPositionBlack = board[0][0];
-        Space desiredPositionBlack = board[0][0];
-        Piece selectedPieceBlack = null;
 
-
-        Scanner keyboard = new Scanner(System.in);
-
-        while (!winCondition(currentBoard)) {
-            //gets input from white player and checks to see if its valid
-            boolean possibleMove = false;
-            boolean rightColor = false;
-            int currentPositionWhiteX;
-            int currentPositionWhiteY;
-            int currentPositionBlackX;
-            int currentPositionBlackY;
-            int desiredPositionWhiteX;
-            int desiredPositionWhiteY;
-            int desiredPositionBlackX;
-            int desiredPositionBlackY;
-            GameBoard game = new GameBoard();
-            GameBoard cont = new GameBoard();
-
-
-            while (!possibleMove && !rightColor) {
-
-                currentPositionWhite = getSpace(cont.getLastClick()) ;
-                selectedPieceWhite = currentPositionWhite.getPiece();
-
-
-
-                desiredPositionWhite = getSpace(cont.getLastClick());
-
-
-                if (selectedPieceWhite != null) {
-                    if (selectedPieceWhite.validateMove(currentPositionWhite.getCoord(), desiredPositionWhite.getCoord(), currentBoard)
-                            && moveCorrectColorPiece(currentPositionWhite) == PlayerTeam.White) {
-                        possibleMove = true;
-                    } else System.out.println("The move you have entered is not valid please try again");
-                } else {
-                    System.out.println("Invalid piece selection.");
-                }
-
-            }
-
-
-            possibleMove = false;
-            rightColor = false;
-            while (!possibleMove && !rightColor) {
-                //Take input from player two and checks if its valid
-                System.out.print("Black player select coordinate of the PIECE (x,y): ");
-                String blackPosStr = keyboard.nextLine();
-                char[] inputArray = blackPosStr.toCharArray();
-
-                ArrayList<Integer> coordArray = new ArrayList<Integer>();
-                for (char aChar : inputArray) {
-                    if (aChar > 47 && aChar < 53) {
-                        int anInt = (int) aChar;
-                        coordArray.add(anInt - 48);
-                    }
-                }
-
-                currentPositionBlackX = coordArray.get(0);
-                currentPositionBlackY = coordArray.get(1);
-                currentPositionBlack = board[currentPositionBlackX][currentPositionBlackY];
-                selectedPieceBlack = currentPositionBlack.getPiece();
-
-                System.out.print("Black player select coordinate of the MOVE (x,y): ");
-                String blackMoveStr = keyboard.nextLine();
-                inputArray = blackMoveStr.toCharArray();
-
-                coordArray = new ArrayList<Integer>();
-                for (char aChar : inputArray) {
-                    if (aChar > 47 && aChar < 53) {
-                        int anInt = (int) aChar;
-                        coordArray.add(anInt - 48);
-                    }
-                }
-
-                desiredPositionBlackX = coordArray.get(0);
-                desiredPositionBlackY = coordArray.get(1);
-                desiredPositionBlack = board[desiredPositionBlackX][desiredPositionBlackY];
-
-                if (selectedPieceBlack != null) {
-                    if (selectedPieceBlack.validateMove(currentPositionBlack.getCoord(), desiredPositionBlack.getCoord(), currentBoard) &&
-                            moveCorrectColorPiece(currentPositionBlack) == PlayerTeam.Black) {
-                        possibleMove = true;
-                    } else System.out.println("The move you have entered is not valid please try again");
-                } else {
-                    System.out.println("Invalid piece Selection.");
-                }
-            }
-
-
-            // execute moves
-
-
-            simultaneousMove(currentPositionWhite, desiredPositionWhite, currentPositionBlack, desiredPositionBlack);
-
-            checkUpgrade();
-            ;
-
-
-        }
     }
 }
 
