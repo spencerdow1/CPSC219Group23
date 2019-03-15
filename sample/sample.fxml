@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -35,7 +36,7 @@
             <Rectangle fx:id="rectangle151" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
             <Rectangle fx:id="rectangle71" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Rectangle fx:id="rectangle91" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle11" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="4" />
+            <Rectangle fx:id="rectangle1111" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="4" />
             <Rectangle fx:id="rectangle31" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Rectangle fx:id="rectangle51" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
             <Rectangle fx:id="rectangle161" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1" />
@@ -47,7 +48,7 @@
             <Rectangle fx:id="rectangle61" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="3" />
             <Rectangle fx:id="rectangle81" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Rectangle fx:id="rectangle101" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle21" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Rectangle fx:id="rectangle2111" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Rectangle fx:id="rectangle41" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Rectangle fx:id="rectangle211" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Rectangle fx:id="rectangle251" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" />
@@ -69,39 +70,39 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Rectangle fx:id="rectangle23" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" />
-            <Rectangle fx:id="rectangle22" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" />
-            <Rectangle fx:id="rectangle25" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" />
-            <Rectangle fx:id="rectangle17" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Rectangle fx:id="rectangle19" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Rectangle fx:id="rectangle11" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="2" />
-            <Rectangle fx:id="rectangle13" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Rectangle fx:id="rectangle15" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Rectangle fx:id="rectangle7" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle9" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle1" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="4" />
-            <Rectangle fx:id="rectangle3" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Rectangle fx:id="rectangle5" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="49.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <Rectangle fx:id="rectangle16" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="1" />
-            <Rectangle fx:id="rectangle18" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Rectangle fx:id="rectangle24" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" />
-            <Rectangle fx:id="rectangle20" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Rectangle fx:id="rectangle12" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Rectangle fx:id="rectangle14" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Rectangle fx:id="rectangle6" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle8" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle10" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Rectangle fx:id="rectangle2" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Rectangle fx:id="rectangle4" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Rectangle fx:id="rectangle21" arcHeight="5.0" arcWidth="5.0" fill="#900000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ImageView fx:id="rectangle1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
+            <ImageView fx:id="rectangle2" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ImageView fx:id="rectangle3" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ImageView fx:id="rectangle4" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <ImageView fx:id="rectangle5" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <ImageView fx:id="rectangle6" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <ImageView fx:id="rectangle7" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ImageView fx:id="rectangle8" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <ImageView fx:id="rectangle9" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ImageView fx:id="rectangle10" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <ImageView fx:id="rectangle11" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <ImageView fx:id="rectangle12" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fx:id="rectangle13" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ImageView fx:id="rectangle14" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ImageView fx:id="rectangle15" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <ImageView fx:id="rectangle16" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <ImageView fx:id="rectangle17" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fx:id="rectangle18" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fx:id="rectangle19" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ImageView fx:id="rectangle20" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <ImageView fx:id="rectangle21" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ImageView fx:id="rectangle22" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <ImageView fx:id="rectangle23" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <ImageView fx:id="rectangle24" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <ImageView fx:id="rectangle25" fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="0" />
          </children>
       </GridPane>
-      <Text fx:id="blackPlayer" fill="RED" layoutX="133.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PlayerName" textAlignment="CENTER" wrappingWidth="233.0791015625">
+      <Text fx:id="blackPlayer" fill="RED" layoutX="133.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PlayerName" textAlignment="CENTER" visible="false" wrappingWidth="233.0791015625">
          <font>
             <Font name="Algerian" size="18.0" />
          </font>
       </Text>
-      <Text fx:id="whitePlayer" fill="RED" layoutX="133.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PlayerName" textAlignment="CENTER" wrappingWidth="233.0791015625">
+      <Text fx:id="whitePlayer" fill="RED" layoutX="133.0" layoutY="400.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PlayerName" textAlignment="CENTER" visible="false" wrappingWidth="233.0791015625">
          <font>
             <Font name="Algerian" size="18.0" />
          </font>

@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.collections.FXCollections;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventTarget;
@@ -10,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -33,55 +35,55 @@ public class Controller {
     @FXML
     private Text blackPlayer;
     @FXML
-    public Rectangle rectangle1;
+    public ImageView rectangle1;
     @FXML
-    public Rectangle rectangle2;
+    public ImageView rectangle2;
     @FXML
-    public Rectangle rectangle3;
+    public ImageView rectangle3;
     @FXML
-    public Rectangle rectangle4;
+    public ImageView rectangle4;
     @FXML
-    public Rectangle rectangle5;
+    public ImageView rectangle5;
     @FXML
-    public Rectangle rectangle6;
+    public ImageView rectangle6;
     @FXML
-    public Rectangle rectangle7;
+    public ImageView rectangle7;
     @FXML
-    public Rectangle rectangle8;
+    public ImageView rectangle8;
     @FXML
-    public Rectangle rectangle9;
+    public ImageView rectangle9;
     @FXML
-    public Rectangle rectangle10;
+    public ImageView rectangle10;
     @FXML
-    public Rectangle rectangle11;
+    public ImageView rectangle11;
     @FXML
-    public Rectangle rectangle12;
+    public ImageView rectangle12;
     @FXML
-    public Rectangle rectangle13;
+    public ImageView rectangle13;
     @FXML
-    public Rectangle rectangle14;
+    public ImageView rectangle14;
     @FXML
-    public Rectangle rectangle15;
+    public ImageView rectangle15;
     @FXML
-    public Rectangle rectangle16;
+    public ImageView rectangle16;
     @FXML
-    public Rectangle rectangle17;
+    public ImageView rectangle17;
     @FXML
-    public Rectangle rectangle18;
+    public ImageView rectangle18;
     @FXML
-    public Rectangle rectangle19;
+    public ImageView rectangle19;
     @FXML
-    public Rectangle rectangle20;
+    public ImageView rectangle20;
     @FXML
-    public Rectangle rectangle21;
+    public ImageView rectangle21;
     @FXML
-    public Rectangle rectangle22;
+    public ImageView rectangle22;
     @FXML
-    public Rectangle rectangle23;
+    public ImageView rectangle23;
     @FXML
-    public Rectangle rectangle24;
+    public ImageView rectangle24;
     @FXML
-    public Rectangle rectangle25;
+    public ImageView rectangle25;
     @FXML
     public GridPane currentBoard;
 
@@ -93,7 +95,7 @@ public class Controller {
      * @return
      */
     public ArrayList createListOfSpaces(){
-        ArrayList<Rectangle> GuiSpaces = new ArrayList<>();
+        ArrayList<ImageView> GuiSpaces = new ArrayList<>();
         GuiSpaces.add(rectangle1);
         GuiSpaces.add(rectangle2);
         GuiSpaces.add(rectangle3);
@@ -123,7 +125,7 @@ public class Controller {
     }
 
 
-    public static void UpdateGUIBoard(Space[][] board, ArrayList<Rectangle> list){
+    public static void UpdateGUIBoard(Space[][] board, ArrayList<ImageView> list){
         Image imageWhiteKnight = new Image("/sample/WhiteK.png");
         Image imageBlackKnight = new Image("/sample/BlackK.png");
         Image imageWhitePawn = new Image("/sample/WhiteP.png");
@@ -134,21 +136,21 @@ public class Controller {
                     if(board[j][l].getPiece() == null){ counter++; continue;}
                     if (board[j][l].getPiece().getPieceType() == PieceType.Knight){
                         if (board[j][l].getPiece().getPlayerTeam() == PlayerTeam.White) {
-                            list.get(counter).setFill(new ImagePattern(imageWhiteKnight));
+                            list.get(counter).setImage(imageWhiteKnight);
                             counter++;
                         }
                         else{
-                            list.get(counter).setFill(new ImagePattern(imageBlackKnight));
+                            list.get(counter).setImage(imageBlackKnight);
                             counter++;
                         }
                     }
                     else if (board[j][l].getPiece().getPieceType() == PieceType.Pawn){
                         if (board[j][l].getPiece().getPlayerTeam() == PlayerTeam.White) {
-                            list.get(counter).setFill(new ImagePattern(imageWhitePawn));
+                            list.get(counter).setImage(imageWhitePawn);
                             counter++;
                         }
                         else{
-                            list.get(counter).setFill(new ImagePattern(imageBlackPawn));
+                            list.get(counter).setImage(imageBlackPawn);
                             counter++;
                         }
                     }
@@ -161,9 +163,9 @@ public class Controller {
     }
 
 
-    public void clearRectangles(ArrayList<Rectangle> list){
+    public void clearRectangles(ArrayList<ImageView> list){
         for (int i = 0; i < list.size(); i++ ){
-            list.get(i).setFill(null);
+            list.get(i).setImage(null);
         }
     }
 
@@ -172,15 +174,157 @@ public class Controller {
 
     public void initialize() throws IOException {
 
-        ArrayList<Rectangle> list = createListOfSpaces();;
-        Board gameBoard = new Board();
+        ArrayList<ImageView> list = createListOfSpaces();;
+        Board board = new Board();
         try {
-            gameBoard = new Board();
+            board = new Board();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+        Space currentPositionWhite = board.board[2][2];
+        Space desiredPositionWhite = board.board[0][0];
+        Piece selectedPieceWhite = null;
+        Space currentPositionBlack = board.board[0][0];
+        Space desiredPositionBlack = board.board[0][0];
+        Piece selectedPieceBlack = null;
+
+        /*while(!board.winCondition(board)) {
+            //gets input from white player and checks to see if its valid
+            boolean possibleMove = false;
+            boolean rightColor = false;
+            int currentPositionWhiteX;
+            int currentPositionWhiteY;
+            int currentPositionBlackX;
+            int currentPositionBlackY;
+            int desiredPositionWhiteX;
+            int desiredPositionWhiteY;
+            int desiredPositionBlackX;
+            int desiredPositionBlackY;
+
+
+            while (!possibleMove && !rightColor ) {
+                // This takes in a string from the user, and takes all the integers
+                // it finds. The first two integers found are added to the array
+                // and then the x and y coordinates are set from there. Otherwise
+                // this works exactly as before.
+                JFXPanel white = new JFXPanel();
+                String whitePosStr = JOptionPane.showInputDialog(white, "Please enter the coordinate of the piece you would like to move(x,y): ");
+                char[] inputArray = whitePosStr.toCharArray();
+
+                ArrayList<Integer> coordArray = new ArrayList<Integer>();
+                for (char aChar : inputArray){
+                    if ( aChar > 47 && aChar < 53 ){
+                        int anInt = (int) aChar;
+                        // FYI -48 is because of position of integers 0-9 on
+                        // on ASCII table
+                        coordArray.add(anInt - 48);
+                    }
+                }
+
+                currentPositionWhiteX = coordArray.get(0);
+                currentPositionWhiteY = coordArray.get(1);
+                currentPositionWhite = board.board[currentPositionWhiteX][currentPositionWhiteY];
+                selectedPieceWhite = currentPositionWhite.getPiece();
+
+                white = new JFXPanel();
+                String whiteMoveStr = JOptionPane.showInputDialog(white, "Please enter the coordinate of the space you would like to move to(x,y): ");
+                inputArray = whiteMoveStr.toCharArray();
+
+                coordArray = new ArrayList<Integer>();
+                for (char aChar : inputArray){
+                    if ( aChar > 47 && aChar < 53 ){
+                        int anInt = (int) aChar;
+                        coordArray.add(anInt - 48);
+                    }
+                }
+
+                desiredPositionWhiteX = coordArray.get(0);
+                desiredPositionWhiteY = coordArray.get(1);
+                desiredPositionWhite = board.board[desiredPositionWhiteX][desiredPositionWhiteY];
+
+
+
+                if (selectedPieceWhite!=null){
+                    if (selectedPieceWhite.validateMove(currentPositionWhite.getCoord(), desiredPositionWhite.getCoord(), board)
+                            && board.moveCorrectColorPiece(currentPositionWhite) == PlayerTeam.White){
+                        possibleMove = true;
+                        rightColor = true;
+                    }
+                    else System.out.println("The move you have entered is not valid please try again");
+                }
+                else {
+                    System.out.println("Invalid piece selection.");
+                }
+
+            }
+
+
+            possibleMove = false;
+            rightColor = false;
+            while (!possibleMove && !rightColor ) {
+                //Take input from player two and checks if its valid
+                JFXPanel black = new JFXPanel();
+                String blackPosStr = JOptionPane.showInputDialog(black,"Please enter the coordinate of the piece you would like to move(x,y): " );
+                char[] inputArray = blackPosStr.toCharArray();
+
+                ArrayList<Integer> coordArray = new ArrayList<Integer>();
+                for (char aChar : inputArray){
+                    if ( aChar > 47 && aChar < 53 ){
+                        int anInt = (int) aChar;
+                        coordArray.add(anInt - 48);
+                    }
+                }
+
+                currentPositionBlackX = coordArray.get(0);
+                currentPositionBlackY = coordArray.get(1);
+                currentPositionBlack = board.board[currentPositionBlackX][currentPositionBlackY];
+                selectedPieceBlack = currentPositionBlack.getPiece();
+
+                black = new JFXPanel();
+                String blackMoveStr = JOptionPane.showInputDialog(black,"Please enter the coordinate of the piece you would like to move(x,y): " );
+                inputArray = blackMoveStr.toCharArray();
+
+                coordArray = new ArrayList<Integer>();
+                for (char aChar : inputArray){
+                    if ( aChar > 47 && aChar < 53 ){
+                        int anInt = (int) aChar;
+                        coordArray.add(anInt - 48);
+                    }
+                }
+
+                desiredPositionBlackX = coordArray.get(0);
+                desiredPositionBlackY = coordArray.get(1);
+                desiredPositionBlack = board.board[desiredPositionBlackX][desiredPositionBlackY];
+
+                if (selectedPieceBlack!=null){
+                    if (selectedPieceBlack.validateMove(currentPositionBlack.getCoord(), desiredPositionBlack.getCoord(), board )&&
+                            board.moveCorrectColorPiece(currentPositionBlack) == PlayerTeam.Black){
+                        possibleMove = true;
+                        rightColor = true;
+                    }
+                    else System.out.println("The move you have entered is not valid please try again");
+                }
+                else {
+                    System.out.println("Invalid piece Selection.");
+                }
+            }
+
+
+
+            // execute moves
+
+
+            board.simultaneousMove(currentPositionWhite, desiredPositionWhite, currentPositionBlack, desiredPositionBlack);
+
+
+            board.checkUpgrade();
+            board.printCurrentBoard();
+
+
+        }*/
+
         clearRectangles(list);
-        UpdateGUIBoard(gameBoard.board, list);
+        UpdateGUIBoard(board.board, list);
 
     }
 }
