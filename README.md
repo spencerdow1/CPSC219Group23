@@ -42,6 +42,19 @@ Files included in this pakage
 
 ### Get Started
 To run this project,you must first download jdk.9.0.4 and set a path to this in your eclipse, then you can create a new java project in eclipse, copy the sample flie into the src folder. Simply run the GameBoard Class to start the game.
+
+## Instructions on How To Play
+
+###Overview
+
+Apocalypse is a variation of the game chess played on a 5x5 board.  Each Player has two knights and two pawns. The pieces can be moved and captured identical to chess. The game can either be played against an AI or against another invididual.
+
+###Movement
+Moves are done simultaneously. This means in each turn, the players choses their move without knowledge of the other, then moves are executed on the board at the same time. If two pawns or two knights are moved to the same position on the board,they are both removed from the board. If a knight from one player and a pawn from another are moved to the same spot then the pawn is captured by the knight.If a pawn reaches the opponents side of the board, then the pawn is upgraded to a knight.
+
+####To Win
+To win the game a player must either: capturing all of the players pawns or the opponent is unable to make a move.
+
 ## Refrences
 Resources used for CPSC 219 Project group 23
 These are all the websites I used while making the project
