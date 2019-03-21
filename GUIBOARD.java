@@ -1,5 +1,6 @@
 import javafx.scene.control.Button;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -10,12 +11,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import java.lang.Math;
 
 public class GUIBOARD extends Application {
 
+
     @Override
     public void start(Stage primaryStage) {
+        System.out.println("");
         GridPane root = new GridPane();
         int size = 5;
         for (int row = 0; row < size; row++) {
@@ -32,33 +37,33 @@ public class GUIBOARD extends Application {
             }
         }
        
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col ++) {
-                Button button = new Button();
-                button.setStyle("-fx-background-color:BLUE");
-                String color ;
-                if ((row + col) % 2 == 0) {
-                    color = "blue";
-                } else {
-                    color = "blue";
-               }
-               //button.setStyle("-fx-background-color: "+color+";");
-                root.add(button, col, row);
-            }
-        }
-       
         for (int i = 0; i < size; i++) {
-            root.getColumnConstraints().add(new ColumnConstraints(5, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, HPos.CENTER, true));
-            root.getRowConstraints().add(new RowConstraints(5, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
+            root.getColumnConstraints().add(new ColumnConstraints(5,
+                Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY,
+                Priority.ALWAYS, HPos.CENTER, true));
+            root.getRowConstraints().add(new RowConstraints(5,
+                Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY,
+                Priority.ALWAYS, VPos.CENTER, true));
         }
-        primaryStage.setScene(new Scene(root, 400, 400));
+
+
+        // Define dimensions of the board
+        int dimX = 500;
+        int dimY = 500;
+
+        // create the click based game
+        ApocalypseClick clickGame = new ApocalypseClick(dimX, dimY);
+
+        // build the scene and add the event
+        Scene theScene = new Scene(root, dimX, dimY);
+        theScene.addEventFilter(MouseEvent.MOUSE_CLICKED, clickGame);
+        primaryStage.setScene(theScene);
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
 }
