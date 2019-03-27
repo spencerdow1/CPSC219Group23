@@ -142,22 +142,27 @@ public class Movement {
 			}
 
             // get the pieces adjacent to the pawn
-			forwardPiece = aBoard.getPiece(forwardIndex);
-			leftPiece = aBoard.getPiece(leftIndex);
-			rightPiece = aBoard.getPiece(rightIndex);
+            if (withinBoard(forwardIndex)){
+                forwardPiece = aBoard.getPiece(forwardIndex);
+             	if (forwardPiece == null) {
+				    moveList.add(forwardIndex);
+			    }
+            }
 
-			// now add the list of moves for the pawn
-			if (forwardPiece == null) {
-				moveList.add(forwardIndex);
-			}
+            if (withinBoard(leftIndex)){
+                leftPiece = aBoard.getPiece(leftIndex);
+                if (leftPiece != null){
+                	moveList.add(leftIndex);
+                }
+            }
 
-			if (leftPiece != null) {
-				moveList.add(leftIndex);
-			}
-
-			if (rightPiece != null) {
-				moveList.add(rightIndex);
-			}
+            if (withinBoard(rightIndex)){
+                rightPiece = aBoard.getPiece(rightIndex);
+                if (rightPiece != null){
+                	moveList.add(rightIndex);
+                }
+            }
+			
 		}
 
 		else {
