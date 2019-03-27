@@ -30,6 +30,7 @@ public class ApocalypseTerminal{
 
         gameBoard.printBoard();
         System.out.println("");
+        game.moveWithUserInput(gameBoard);
 
 	}
 
