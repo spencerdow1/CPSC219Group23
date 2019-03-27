@@ -19,6 +19,9 @@ public class CustomGameSet extends GameSet{
 		else if (setNum == 2){
 			super.setGamePieces(createCustomSetTwo());
 		}
+		else if (setNum == 3){
+			super.setGamePieces(createCustomSetThree());
+		}
 
 		else {
 			System.out.print("No constructor or custom game set number ");
@@ -85,6 +88,16 @@ public class CustomGameSet extends GameSet{
         customSet.add(knight1);
 
         return customSet;
+    }
+
+
+    public ArrayList<Piece> createCustomSetThree(){
+    	customSet = new ArrayList<Piece>();
+    	Piece pawn1 = new Piece("pawn", "white", new Coord(2,2), "WP1");
+    	Piece pawn2 = new Piece("pawn", "black", new Coord(2,3), "BP1");
+    	customSet.add(pawn1);
+    	customSet.add(pawn2);
+    	return customSet;
     }
 
 }

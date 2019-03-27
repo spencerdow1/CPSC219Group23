@@ -13,12 +13,35 @@ public class Coord {
 	public int y;
 	private int[] coord = new int[2];
 
+
+	/**
+	 * Constructor that defaults to zero.
+	 **/
+	public Coord() {
+		setCoords(0, 0);
+	}
+
+	/**
+	 * Constructor to initialize a coordinate tuple given x and y values.
+	 **/
+	public Coord(int someX, int someY) {
+		setCoords(someX, someY);
+	}
+
+	/**
+	 * Constructor which takes a coordinate as a parameter
+	**/
+	public Coord(Coord aCoord) {
+		setCoords(aCoord.x, aCoord.y);
+	}
 	/**
 	 * Simple add function. Will accept negative values for a subtraction
 	 * 
 	 * @param <addX>: integer to add for the x value
 	 * @param <addY>: integer to add for the y value
 	 **/
+
+
 	public void add(int addX, int addY) {
 		setXCoord(getXCoord() + addX);
 		setYCoord(getYCoord() + addY);
@@ -114,25 +137,21 @@ public class Coord {
 		return printString;
 	}
 
-	/**
-	 * Constructor that defaults to zero.
-	 **/
-	public Coord() {
-		setCoords(0, 0);
+
+	public boolean equals(Coord aCoord){
+		boolean isTrue = false;
+        int currentX = getXCoord();
+        int currentY = getYCoord();
+        int compareX = aCoord.getXCoord();
+        int compareY = aCoord.getYCoord();
+        if (currentX == compareX){
+        	if (currentY == compareY){
+        		isTrue = true;
+        	}
+        }
+		return isTrue;
 	}
 
-	/**
-	 * Constructor to initialize a coordinate tuple given x and y values.
-	 **/
-	public Coord(int someX, int someY) {
-		setCoords(someX, someY);
-	}
 
-	/**
-	 * Constructor which takes a coordinate as a parameter
-	 **/
-	public Coord(Coord aCoord) {
-		setCoords(aCoord.x, aCoord.y);
-	}
 
 }

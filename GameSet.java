@@ -29,17 +29,27 @@ public abstract class GameSet{
 		return theSize;
 	}
 
-	// public void removePiece(String pieceName){
- //        // remove piece by name
- //        // make sure that the white or black piece list is updated
- //        // when a piece is removed
- //        setWhiteAndBlackPieces(gamePieces);
-	// }
+	public void removePiece(int index){
+        ArrayList<Piece> copyList = new ArrayList<Piece>();
+        for (int i=0; i<gamePieces.size(); i++){
+            if (i != index){
+                copyList.add(gamePieces.get(i));
+            }
+        }
+        gamePieces = copyList;
+        setWhiteAndBlackPieces(gamePieces);
+	}
 
-	// public void removePiece(int index){
-	// 	// remove piece by index in arrayList
-	// 	setWhiteAndBlackPieces(gamePieces);
-	// }
+	public void removePieces(int n, int m){
+        ArrayList<Piece> copyList = new ArrayList<Piece>();
+        for (int i=0; i<gamePieces.size(); i++){
+            if (i != n && i != m){
+                copyList.add(gamePieces.get(i));
+            }
+        }
+        gamePieces = copyList;
+        setWhiteAndBlackPieces(gamePieces);
+	}
 
 	public ArrayList<Piece> getWhitePieces(){
         ArrayList<Piece> copyList = new ArrayList<Piece>(whitePieces);
@@ -77,6 +87,11 @@ public abstract class GameSet{
         ArrayList<Piece> copyList = new ArrayList<Piece>(gamePieces);
         return copyList;
 	}
+
+
+    public Piece getPiece(int i){
+        return gamePieces.get(i);
+    }
 
 
     public Piece getPieceCopyFromSet(int i){
@@ -141,6 +156,80 @@ public abstract class GameSet{
         }
 
         return gameString;
+    }
+
+
+    public Piece getPieceByCoord(Coord location){
+        int counter = -1;
+        int length = gamePieces.size();
+        // initialize to the first piece so it returns something
+        Piece thePiece;
+        Coord pieceCoord;
+        boolean foundPiece = false;
+
+        if (length > 0){
+            // initialize the piece so the compiler doesnt complain
+            thePiece = gamePieces.get(0);
+
+            for (Piece aPiece : gamePieces){
+                counter ++;
+                pieceCoord = aPiece.getPosition();
+
+                if (pieceCoord.equals(location)){
+                    thePiece = gamePieces.get(counter);
+                    foundPiece = true;
+                }
+
+                else if (counter == length && foundPiece == false){
+                    // this means end of the list was reached but 
+                    // no piece was found
+                    System.out.print("No piece found in getPieceByCoord.");
+                    System.out.println(" Returned first piece.");
+                }
+            }
+        }
+
+        else {
+            thePiece = new Piece("pawn", "white", new Coord(0,0), "NULL");
+            System.out.println("Searched for piece in size 0 GameSet.");
+        }
+
+        return thePiece;
+    }
+
+
+    public int getPieceIndexByCoord(Coord location){
+        int counter = -1;
+        int length = gamePieces.size();
+        int theIndex = 0;
+        Coord pieceCoord;
+        boolean foundPiece = false;
+
+        if (length > 0){
+
+            for (Piece aPiece : gamePieces){
+                counter ++;
+                pieceCoord = aPiece.getPosition();
+
+                if (pieceCoord.equals(location)){
+                    theIndex = counter;
+                    foundPiece = true;
+                }
+
+                else if (counter == length - 1 && foundPiece == false){
+                    // this means end of the list was reached but 
+                    // no piece was found
+                    System.out.print("No piece found in getPieceByCoord.");
+                    System.out.println(" Returned first piece.");
+                }
+            }
+        }
+
+        else {
+            System.out.println("Searched for piece in size 0 GameSet.");
+        }
+
+        return theIndex;
     }
 
 }
