@@ -122,14 +122,6 @@ public class GameDynamics extends Movement {
 	}
 
 
-    public void checkUpgrade(){
-
-        for (Piece checkPiece : gamePieces) {
-            checkPiece.upgrade(checkPiece);
-        }
-    }
-
-
 	public void simultaneousMovement(ArrayList<Coord> turnMoves,
         GameSet pieces, Board currentBoard){
 
@@ -213,6 +205,12 @@ public class GameDynamics extends Movement {
             }
         }
 
+        // check for possible upgrades in the game set
+        ArrayList<Piece> alivePieces = pieces.getGamePieces();
+        for (Piece aPiece : alivePieces){
+            aPiece.upgrade();
+        }
+
         // now that the gameset is modified just update the board
         currentBoard.updateBoard(pieces);
 	}
@@ -264,6 +262,8 @@ public class GameDynamics extends Movement {
                 System.out.println("");
                 System.out.println("turn number "+turnCounter);
                 System.out.println("");
+                System.out.println(theGameSet.toString());
+                System.out.println("");
 
                 turnMulti = new ArrayList<Coord>();
                 theBoard.printBoard();
@@ -283,8 +283,6 @@ public class GameDynamics extends Movement {
 
                 // actually execute the movement
                 simultaneousMovement(turnMulti, theGameSet, theBoard);
-                System.out.println("");
-                System.out.println(theGameSet.toString());
             }
 
             // Somebody has won so we print it oot

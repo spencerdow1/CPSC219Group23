@@ -32,7 +32,7 @@ public class Coord {
 	 * Constructor which takes a coordinate as a parameter
 	**/
 	public Coord(Coord aCoord) {
-		setCoords(aCoord.x, aCoord.y);
+		setCoords(aCoord.getXCoord(), aCoord.getYCoord());
 	}
 	/**
 	 * Simple add function. Will accept negative values for a subtraction
@@ -123,7 +123,6 @@ public class Coord {
 
 	/**
 	 * Custom toString() method
-	 * 
 	 * @return <printString>: nicely formatted 2-tuple in (x, y)
 	 **/
 	@Override
