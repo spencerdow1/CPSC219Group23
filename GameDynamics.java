@@ -2,14 +2,39 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class GameDynamics extends Movement {
     GameSet gameSet = new DefaultGameSet();
     Board board = new Board(gameSet);
     Piece[][] currentBoard = new Piece[5][5];
     ArrayList<Piece> gamePieces = gameSet.getGamePieces();
+    String playerOneName = "player 1";
+    String playerTwoName = "player 2";
+    Player playerOne;
+    Player playerTwo;
+    AIPlayer computerPlayer;
 
 
-    public boolean staleMate(GameSet aGameSet, Board theBoard){
+    public GameDynamics(){}
+
+
+    public GameDynamics(Player playerOne, Player playerTwo){
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        playerOneName = playerOne.getName();
+        playerTwoName = playerTwo.getName();
+    }
+
+
+    public GameDynamics(Player playerOne, AIPlayer aComputerPlayer){
+        this.playerOne = playerOne;
+        computerPlayer = aComputerPlayer;
+        playerOneName = playerOne.getName();
+        playerTwoName = aComputerPlayer.getName();
+    }
+
+
+    public boolean stalemate(GameSet aGameSet, Board theBoard){
         boolean stalemate = false;
         ArrayList<Piece> whitePieces = aGameSet.getWhitePieces();
         ArrayList<Piece> blackPieces = aGameSet.getBlackPieces();
@@ -96,6 +121,7 @@ public class GameDynamics extends Movement {
         return winString;
 	}
 
+
     public void checkUpgrade(){
 
         for (Piece checkPiece : gamePieces) {
@@ -153,178 +179,219 @@ public class GameDynamics extends Movement {
         currentBoard.updateBoard(pieces);
 	}
 
-    public String moveCorrectColorPiece(Coord currentPosition){
-        String colorOfPiece = null;
-        if (board.getPiece(currentPosition) != null){
-            if (board.getPiece(currentPosition).getColour() == "white"){
-                colorOfPiece = "white";
+
+    public void runSinglePlayer(GameSet theGameSet, Board theBoard){
+
+        ArrayList<Coord> whiteTurn, blackTurn;
+        ArrayList<Coord> turn = new ArrayList<Coord>();
+
+        // IF TEH GAME IS NOT IN STALEMATE CONDITION THEN EXECUTE
+        if (stalemate(theGameSet, theBoard) == false){
+            
+            while(winCondition(theGameSet.getGamePieces()) == "continue") {
+                turn = new ArrayList<Coord>();
+                theBoard.printBoard();
+                
+                // get all the moves
+                whiteTurn = getUserInput("white", theBoard);
+                blackTurn = computerPlayer.chooseMove(theGameSet, theBoard);
+                turn.addAll(whiteTurn);
+                turn.addAll(blackTurn);
+
+                // actually execute the movement
+                simultaneousMovement(turn, theGameSet, theBoard);
             }
-            else if (board.getPiece(currentPosition).getColour() == "black"){
-                colorOfPiece = "black";
-            }
+
+            // Somebody has won so we print it oot
+//            System.out.println(winCondition(theGameSet));
         }
-        return colorOfPiece;
+
+        // IF THE GAME IS IN STALEMATE CONDITION
+        else {
+            System.out.println("Stalemate reached.");
+        }
     }
 
-    public void moveWithUserInput(Board currentBoard){
-        Coord currentPositionWhite = new Coord();
-        Coord desiredPositionWhite = new Coord();
-        Piece selectedPieceWhite = null;
-        Coord currentPositionBlack = new Coord();
-        Coord desiredPositionBlack = new Coord();
-        Piece selectedPieceBlack = null;
+
+    public void runMultiplayer(GameSet theGameSet, Board theBoard){
+
+        ArrayList<Coord> whiteTurnMulti, blackTurnMulti;
+        ArrayList<Coord> turnMulti = new ArrayList<Coord>();
+        int turnCounter = 0;
+
+        // IF TEH GAME IS NOT IN STALEMATE CONDITION THEN EXECUTE
+        if (stalemate(theGameSet, theBoard) == false){
+            while(winCondition(theGameSet.getGamePieces()) == "continue") {
+                turnCounter++;
+                System.out.println("");
+                System.out.println("turn number "+turnCounter);
+                System.out.println("");
+
+                turnMulti = new ArrayList<Coord>();
+                theBoard.printBoard();
+                
+                // get all the moves
+                whiteTurnMulti = getUserInput("white", theBoard);
+                blackTurnMulti = getUserInput("black", theBoard);
+                turnMulti.addAll(whiteTurnMulti);
+                turnMulti.addAll(blackTurnMulti);
+
+                // TROUBLESHOOTING
+                System.out.print("Move sequence in runMultiplayer: ");
+                for (Coord aCoord : turnMulti){
+                    System.out.print(aCoord.toString());
+                }
+                System.out.println("");
+
+                // actually execute the movement
+                simultaneousMovement(turnMulti, theGameSet, theBoard);
+            }
+
+            // Somebody has won so we print it oot
+//            System.out.println(winCondition(theGameSet));
+        }
+
+        // IF THE GAME IS IN STALEMATE CONDITION
+        else {
+            System.out.println("Stalemate reached.");
+        }
+    }
 
 
+    public Coord getCoordFromInput(){
         Scanner keyboard = new Scanner(System.in);
+        Coord returnCoord = new Coord(0,0);
 
-        while(winCondition(gamePieces) == "continue") {
-            //gets input from white player and checks to see if its valid
-            boolean possibleMove = false;
-            boolean rightColor = false;
-            int currentPositionWhiteX;
-            int currentPositionWhiteY;
-            int currentPositionBlackX;
-            int currentPositionBlackY;
-            int desiredPositionWhiteX;
-            int desiredPositionWhiteY;
-            int desiredPositionBlackX;
-            int desiredPositionBlackY;
+        boolean validCoord = false;
+        while (validCoord == false){
+            String coordString = keyboard.nextLine();
+            char[] inputArray = coordString.toCharArray();
+            ArrayList<Integer> coordArray = new ArrayList<Integer>();
 
-
-            while (!possibleMove && !rightColor ) {
-                // This takes in a string from the user, and takes all the integers
-                // it finds. The first two integers found are added to the array
-                // and then the x and y coordinates are set from there. Otherwise
-                // this works exactly as before.
-                ArrayList<Integer> coordArray = new ArrayList<Integer>();
-                while(coordArray.size() != 2){
-                    System.out.print("White player select coordinate of the PIECE (x,y): ");
-                    String whitePosStr = keyboard.nextLine();
-                    char[] inputArray = whitePosStr.toCharArray();
-
-                    coordArray = new ArrayList<Integer>();
-                    for (char aChar : inputArray){
-                        if ( aChar > 47 && aChar < 53 ) {
-                            int anInt = (int) aChar;
-                            // FYI -48 is because of position of integers 0-9 on
-                            // on ASCII table
-                            coordArray.add(anInt - 48);
-                        }
-                    }
-                }
-
-                currentPositionWhiteX = coordArray.get(0);
-                currentPositionWhiteY = coordArray.get(1);
-                currentPositionWhite = new Coord(currentPositionWhiteX,currentPositionWhiteY);
-                selectedPieceWhite = gameSet.getPieceByCoord(currentPositionWhite);
-
-                coordArray = new ArrayList<Integer>();
-                while(coordArray.size() != 2){
-                    System.out.print("White player select coordinate of the MOVE (x,y): ");
-                    String whiteMoveStr = keyboard.nextLine();
-                    char[] inputArray = whiteMoveStr.toCharArray();
-
-                    coordArray = new ArrayList<Integer>();
-                    for (char aChar : inputArray){
-                        if ( aChar > 47 && aChar < 53 ) {
-                            int anInt = (int) aChar;
-                            coordArray.add(anInt - 48);
-                        }
-                    }
-                }
-
-                desiredPositionWhiteX = coordArray.get(0);
-                desiredPositionWhiteY = coordArray.get(1);
-                desiredPositionWhite = new Coord(desiredPositionWhiteX , desiredPositionWhiteY);
-
-
-                if (selectedPieceWhite!=null){
-                    if (legalMove(selectedPieceWhite, board, desiredPositionWhite)
-                            && moveCorrectColorPiece(currentPositionWhite) == "white"){
-                        possibleMove = true;
-                    }
-                    else System.out.println("The move you have entered is not valid please try again");
-                }
-                else {
-                    System.out.println("Invalid piece selection.");
-                }
-
-            }
-
-
-            possibleMove = false;
-            rightColor = false;
-            while (!possibleMove && !rightColor ) {
-                //Take input from player two and checks if its valid
-                ArrayList<Integer>coordArray = new ArrayList<Integer>();
-                while(coordArray.size() != 2){
-                    System.out.print("Black player select coordinate of the PIECE (x,y): ");
-                    String blackPosStr = keyboard.nextLine();
-                    char[] inputArray = blackPosStr.toCharArray();
-
-                    coordArray = new ArrayList<Integer>();
-                    for (char aChar : inputArray){
-                        if ( aChar > 47 && aChar < 53 ) {
-                            int anInt = (int) aChar;
-                            coordArray.add(anInt - 48);
-                        }
-                    }
-                }
-
-                currentPositionBlackX = coordArray.get(0);
-                currentPositionBlackY = coordArray.get(1);
-                currentPositionBlack = new Coord(currentPositionBlackX,currentPositionBlackY);
-                selectedPieceBlack = gameSet.getPieceByCoord(currentPositionBlack);
-
-                coordArray = new ArrayList<Integer>();
-                while(coordArray.size() != 2){
-
-                    System.out.print("Black player select coordinate of the MOVE (x,y): ");
-                    String blackMoveStr = keyboard.nextLine();
-                    char [] inputArray = blackMoveStr.toCharArray();
-
-                    coordArray = new ArrayList<Integer>();
-                    for (char aChar : inputArray){
-                        if ( aChar > 47 && aChar < 53 ) {
-                            int anInt = (int) aChar;
-                            coordArray.add(anInt - 48);
-                        }
-                    }
-                }
-
-                desiredPositionBlackX = coordArray.get(0);
-                desiredPositionBlackY = coordArray.get(1);
-                desiredPositionBlack = new Coord(desiredPositionBlackX,desiredPositionBlackY);
-
-                if (selectedPieceBlack!=null){
-                    if (legalMove(selectedPieceBlack, board, desiredPositionBlack ) &&
-                            moveCorrectColorPiece(currentPositionBlack) == "black"){
-                        possibleMove = true;
-                    }
-                    else System.out.println("The move you have entered is not valid please try again");
-                }
-                else {
-                    System.out.println("Invalid piece Selection.");
+            for (char aChar : inputArray){
+                if ( aChar > 47 && aChar < 53 ){
+                    int anInt = (int) aChar;
+                    coordArray.add(anInt - 48);
                 }
             }
-            ArrayList<Coord> moves = new ArrayList<>();
-            moves.add(currentPositionWhite);
-            moves.add(desiredPositionWhite);
-            moves.add(currentPositionBlack);
-            moves.add(desiredPositionBlack);
 
+            if (coordArray.size() == 2){
+                int x = coordArray.get(0);
+                int y = coordArray.get(1);
+                returnCoord = new Coord(x, y);
+                validCoord = true;
+            }
 
-
-            // execute moves
-
-
-            simultaneousMovement(moves, gameSet, board);
-            checkUpgrade();
-            board.printBoard();
-
+            else {
+                System.out.print("Invalid input. Enter selection in the ");
+                System.out.println("form (x,y) from 0-4.");
+            }
         }
 
+        return returnCoord;
     }
+    
 
+    public ArrayList<Coord> getUserInput(String color, Board aBoard){
+        Scanner keyboard = new Scanner(System.in);
+        ArrayList<Coord> returnList = new ArrayList<Coord>();
+        Coord selection, move;
+        Piece chosenPiece = new Piece("pawn", "white", new Coord(0,0), "NULL");
+        boolean validPiece = false;
+        boolean validMove = false;
+
+        if (color.equals("white")){
+            // GETTING TEH PIECE
+            while (validPiece == false){
+                returnList = new ArrayList<Coord>();
+                validMove = false;
+                System.out.print("White player select coordinate of the PIECE (x,y): ");
+                selection = getCoordFromInput();
+                if (aBoard.getPiece(selection) == null){
+                    System.out.println("Invalid Piece selection.");
+                    // this is so it skips the valid move
+                    validMove = true;
+                }
+                else {
+                    chosenPiece = aBoard.getPiece(selection);
+                    if (chosenPiece.getColour().equals("white")){
+                        returnList.add(selection);
+                        validPiece = true;
+                        System.out.print("The piece selected is ");
+                        System.out.println(chosenPiece.getName());
+                    }
+                    else {
+                        System.out.println("Invalid piece colour.");
+                    }
+                }
+            
+                // GETTING TEH MOVE
+                while (validMove == false) {
+                    System.out.print("White player select coordinate of the MOVE (x,y): ");
+                    move = getCoordFromInput();
+                    if (legalMove(chosenPiece, aBoard, move) == true){
+                        returnList.add(move);
+                        validMove = true;
+                    }
+                    else {
+                        System.out.println("Invalid move selection.");
+                        // this is to replace a break statement
+                        validMove = true;
+                        validPiece = false;
+                    }
+                //end of second while
+                }
+            //end of first while
+            }
+        }
+
+        else if (color.equals("black")){
+            // GETTING TEH PIECE
+            while (validPiece == false){
+                returnList = new ArrayList<Coord>();
+                validMove = false;
+                System.out.print("Black player select coordinate of the PIECE (x,y): ");
+                selection = getCoordFromInput();
+                if (aBoard.getPiece(selection) == null){
+                    System.out.println("Invalid Piece selection.");
+                    validMove = true;
+                }
+                else {
+                    chosenPiece = aBoard.getPiece(selection);
+                    if (chosenPiece.getColour().equals("black")){
+                        returnList.add(selection);
+                        validPiece = true;
+                        System.out.print("The piece selected is ");
+                        System.out.println(chosenPiece.getName());
+                    }
+                    else {
+                        System.out.println("Invalid piece colour.");
+                    }
+                }
+            
+                // GETTING TEH MOVE
+                while (validMove == false) {
+                    System.out.print("Black player select coordinate of the MOVE (x,y): ");
+                    move = getCoordFromInput();
+                    if (legalMove(chosenPiece, aBoard, move) == true){
+                        returnList.add(move);
+                        validMove = true;
+                    }
+                    else {
+                        System.out.println("Invalid move selection.");
+                        validPiece = false;
+                    }
+                //end of second while
+                }            
+            // end of first while
+            }
+        }
+
+        else {
+            System.out.println("Invalid colour found in getUserInput.");
+        }
+
+        return returnList;
+    }
 
 }
