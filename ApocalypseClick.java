@@ -3,6 +3,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import java.lang.Math;
 import java.util.ArrayList;
+import javafx.scene.SubScene;
 
 public class ApocalypseClick implements EventHandler<MouseEvent> {
         
@@ -25,8 +26,8 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
     public void handle(MouseEvent aClick){
         numTurnClicks += 1;
 
-        xClickLoc = aClick.getSceneX();
-        yClickLoc = aClick.getSceneY();
+        xClickLoc = aClick.getSceneX()-100;
+        yClickLoc = aClick.getSceneY()-100;
         xClickLoc = xClickLoc*5/sceneSizeX;
         yClickLoc = yClickLoc*5/sceneSizeY;
         int xCoord = (int) Math.floor(xClickLoc);
