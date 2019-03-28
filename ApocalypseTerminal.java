@@ -78,9 +78,10 @@ public class ApocalypseTerminal{
             boolean playAgain = true;
             while (playAgain == true){
                 System.out.println("");
-                GameSet gameSet = new DefaultGameSet();
+                GameSet gameSet = new CustomGameSet(4);
                 Board gameBoard = new Board(gameSet);
-                GameDynamics game = new GameDynamics(humanPlayer, computer);        
+                GameDynamicsTerminal game = new GameDynamicsTerminal(
+                        humanPlayer, computer);        
                 game.runSinglePlayer(gameSet, gameBoard);
                 
                 // after the game has executed, print the state of the board
@@ -150,13 +151,62 @@ public class ApocalypseTerminal{
 
             boolean playAgain = true;
             while (playAgain == true){
-                System.out.println("");
-                GameSet gameSet = new DefaultGameSet();
+                GameSet gameSet = new CustomGameSet(4);
                 Board gameBoard = new Board(gameSet);
-                GameDynamics game = new GameDynamics(player1, player2);
+                GameDynamicsTerminal game = new GameDynamicsTerminal(
+                        player1, player2);
                 game.runMultiplayer(gameSet, gameBoard);
+                
+                // after the game has executed
+                // print the state of the board
                 System.out.println("");
-                playAgain = false;
+                gameBoard.printBoard();
+                System.out.println("");
+
+                // print who won or if it was a stalemate
+                String winString = game.winCondition(gameSet, gameBoard);
+                                   
+                if (winString.equals("draw")){
+                    System.out.println("It's a draw!");
+                    System.out.println("");
+                }
+                else if (winString.equals("black")){
+                    System.out.println(player2Name+" wins!");
+                    System.out.println("");
+                }
+                else if (winString.equals("white")){
+                    System.out.println(player1Name+" wins!");
+                    System.out.println("");
+                }
+                else if (winString.equals("stalemate")){
+                    System.out.println("Stalemate reached.");
+                    System.out.println("");    
+                }
+                else {
+                    System.out.println("Error in who won. ");
+                }
+
+
+                // prompt for a play again
+                boolean promptAgain = true;
+                while (promptAgain == true){
+                    System.out.print("Would you like to play again? (y/n): ");
+                    String playAgainChoice = keyboard.nextLine();
+                    playAgainChoice = playAgainChoice.toUpperCase();
+
+                    if (playAgainChoice.equals("Y") || playAgainChoice.equals("YES")){
+                        playAgain = true;
+                        promptAgain = false;
+                    }
+                    else if (playAgainChoice.equals("N") || playAgainChoice.equals("NO")){
+                        playAgain = false;
+                        promptAgain = false;
+                    }
+                    else {
+                        System.out.println("Invalid input.");
+                    }
+                }
+            
             }
         }
 

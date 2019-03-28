@@ -22,7 +22,12 @@ public class CustomGameSet extends GameSet{
 		else if (setNum == 3){
 			super.setGamePieces(createCustomSetThree());
 		}
-
+        else if (setNum == 4){
+            super.setGamePieces(createCustomSetFour());
+        }
+        else if (setNum == 5){
+            super.setGamePieces(createCustomSetFive());
+        }
 		else {
 			System.out.print("No constructor or custom game set number ");
 			System.out.println("for set number "+setNum);
@@ -93,11 +98,41 @@ public class CustomGameSet extends GameSet{
 
     public ArrayList<Piece> createCustomSetThree(){
     	customSet = new ArrayList<Piece>();
-    	Piece pawn1 = new Piece("pawn", "white", new Coord(2,2), "WP1");
-    	Piece pawn2 = new Piece("pawn", "black", new Coord(2,3), "BP1");
+    	Piece pawn1 = new Piece("pawn", "white", new Coord(2,1), "WP1");
+    	Piece pawn2 = new Piece("pawn", "black", new Coord(2,4), "BP1");
     	customSet.add(pawn1);
     	customSet.add(pawn2);
     	return customSet;
     }
+
+
+    public ArrayList<Piece> createCustomSetFour(){
+        customSet = new ArrayList<Piece>();
+        Piece pawn1 = new Piece("pawn", "white", new Coord(4,0), "WP1");
+        Piece pawn2 = new Piece("pawn", "black", new Coord(4,1), "BP1");
+        Piece knight3 = new Piece("knight", "white", new Coord(2,2), "WK2");
+        Piece knight4 = new Piece("knight", "black", new Coord(0,4), "BK2");
+        customSet.add(pawn1);
+        customSet.add(pawn2);
+        customSet.add(knight3);
+        customSet.add(knight4);
+        return customSet;
+    }
+
+
+    public ArrayList<Piece> createCustomSetFive(){
+        customSet = new ArrayList<Piece>();
+        Piece pawn1 = new Piece("pawn", "white", new Coord(0,3), "WP1");
+        Piece pawn2 = new Piece("pawn", "black", new Coord(0,4), "BP1");
+        Piece knight3 = new Piece("knight", "white", new Coord(1,3), "WK2");
+        Piece pawn4 = new Piece("pawn", "black", new Coord(1,4), "BP2");
+        customSet.add(pawn1);
+        customSet.add(pawn2);
+        customSet.add(knight3);
+        customSet.add(pawn4);
+        return customSet;
+    }
+
+
 
 }
