@@ -150,7 +150,7 @@ public class GameDynamics extends Movement {
         String whitePieceType = whitePiece.getType();
         String blackPieceType = blackPiece.getType();
 
-        // cases for if two pieces try to move to the same spot
+        // IF PIECES MOVE TO THE SAME SPOT
         if (whiteMove.equals(blackMove)){
             // if both pieces are the same type they annihilate
             if (whitePieceType.equals(blackPieceType)){
@@ -170,9 +170,47 @@ public class GameDynamics extends Movement {
             }
         }
 
+        // OTHERWISE HANDLE MOVES AND CAPTURES
         else {
-            movePiece(whitePiece, whiteMove);
-            movePiece(blackPiece, blackMove);
+            // get the pieces which will be moved to for black and white
+            Piece whitePieceReference = currentBoard.getPiece(whiteMove);
+            Piece blackPieceReference = currentBoard.getPiece(blackMove);
+            
+            // WHITE MOVE
+            if (whitePieceReference != null){
+                // if white is moving to a location that black is not
+                // moving away from then delete that piece
+                if (whiteMove.equals(blackPieceLocation) == false){
+                    int annihilateIndex = pieces.getPieceIndexByCoord(whiteMove);
+                    pieces.removePiece(annihilateIndex);
+                    movePiece(whitePiece, whiteMove);
+                }
+                // otherwise just move because black is moving
+                else {
+                    movePiece(whitePiece, whiteMove);
+                }
+            }
+            else {
+                movePiece(whitePiece, whiteMove);
+            }
+
+            // BLACK MOVE
+            if (blackPieceReference != null){
+                // if white is moving to a location that black is not
+                // moving away from then delete that piece
+                if (blackMove.equals(whitePieceLocation) == false){
+                    int annihilateIndex = pieces.getPieceIndexByCoord(blackMove);
+                    pieces.removePiece(annihilateIndex);
+                    movePiece(blackPiece, blackMove);
+                }
+                // otherwise just move because black is moving
+                else {
+                    movePiece(blackPiece, blackMove);
+                }
+            }
+            else {
+                movePiece(blackPiece, blackMove);
+            }
         }
 
         // now that the gameset is modified just update the board
@@ -245,6 +283,8 @@ public class GameDynamics extends Movement {
 
                 // actually execute the movement
                 simultaneousMovement(turnMulti, theGameSet, theBoard);
+                System.out.println("");
+                System.out.println(theGameSet.toString());
             }
 
             // Somebody has won so we print it oot
