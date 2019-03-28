@@ -77,7 +77,8 @@ public class GameDynamics extends Movement {
     }
 
 
-	public String winCondition(ArrayList<Piece> aPieceList){
+	public String winCondition(GameSet theGameSet, Board theBoard){
+        ArrayList<Piece> aPieceList = theGameSet.getGamePieces();
         int numWhitePawns = 0;
         int numBlackPawns = 0;
         String currentType, colour, winString;
@@ -112,6 +113,10 @@ public class GameDynamics extends Movement {
 
         else if (numBlackPawns == 0){
             winString = "white";
+        }
+
+        else if (stalemate(theGameSet, theBoard)){
+            winString = "stalemate";
         }
 
         else {
@@ -222,30 +227,19 @@ public class GameDynamics extends Movement {
         ArrayList<Coord> turn = new ArrayList<Coord>();
 
         // IF TEH GAME IS NOT IN STALEMATE CONDITION THEN EXECUTE
-        if (stalemate(theGameSet, theBoard) == false){
+        while(winCondition(theGameSet, theBoard).equals("continue")) {
+            turn = new ArrayList<Coord>();
+            theBoard.printBoard();
             
-            while(winCondition(theGameSet.getGamePieces()) == "continue") {
-                turn = new ArrayList<Coord>();
-                theBoard.printBoard();
-                
-                // get all the moves
-                whiteTurn = getUserInput("white", theBoard);
-                blackTurn = computerPlayer.chooseMove(theGameSet, theBoard);
-                turn.addAll(whiteTurn);
-                turn.addAll(blackTurn);
-
-                // actually execute the movement
-                simultaneousMovement(turn, theGameSet, theBoard);
-            }
-
-            // Somebody has won so we print it oot
-//            System.out.println(winCondition(theGameSet));
+            // get all the moves
+            whiteTurn = getUserInput("white", theBoard);
+            blackTurn = computerPlayer.chooseMove(theGameSet, theBoard);
+            turn.addAll(whiteTurn);
+            turn.addAll(blackTurn);
+            // actually execute the movement
+            simultaneousMovement(turn, theGameSet, theBoard);
         }
 
-        // IF THE GAME IS IN STALEMATE CONDITION
-        else {
-            System.out.println("Stalemate reached.");
-        }
     }
 
 
@@ -256,42 +250,32 @@ public class GameDynamics extends Movement {
         int turnCounter = 0;
 
         // IF TEH GAME IS NOT IN STALEMATE CONDITION THEN EXECUTE
-        if (stalemate(theGameSet, theBoard) == false){
-            while(winCondition(theGameSet.getGamePieces()) == "continue") {
-                turnCounter++;
-                System.out.println("");
-                System.out.println("turn number "+turnCounter);
-                System.out.println("");
-                System.out.println(theGameSet.toString());
-                System.out.println("");
+        while(winCondition(theGameSet, theBoard).equals("continue")) {
+            turnCounter++;
+            System.out.println("");
+            System.out.println("turn number "+turnCounter);
+            System.out.println("");
+            System.out.println(theGameSet.toString());
+            System.out.println("");
 
-                turnMulti = new ArrayList<Coord>();
-                theBoard.printBoard();
-                
-                // get all the moves
-                whiteTurnMulti = getUserInput("white", theBoard);
-                blackTurnMulti = getUserInput("black", theBoard);
-                turnMulti.addAll(whiteTurnMulti);
-                turnMulti.addAll(blackTurnMulti);
+            turnMulti = new ArrayList<Coord>();
+            theBoard.printBoard();
+               
+            // get all the moves
+            whiteTurnMulti = getUserInput("white", theBoard);
+            blackTurnMulti = getUserInput("black", theBoard);
+            turnMulti.addAll(whiteTurnMulti);
+            turnMulti.addAll(blackTurnMulti);
 
-                // TROUBLESHOOTING
-                System.out.print("Move sequence in runMultiplayer: ");
-                for (Coord aCoord : turnMulti){
-                    System.out.print(aCoord.toString());
-                }
-                System.out.println("");
-
-                // actually execute the movement
-                simultaneousMovement(turnMulti, theGameSet, theBoard);
+            // TROUBLESHOOTING
+            System.out.print("Move sequence in runMultiplayer: ");
+            for (Coord aCoord : turnMulti){
+                System.out.print(aCoord.toString());
             }
+            System.out.println("");
 
-            // Somebody has won so we print it oot
-//            System.out.println(winCondition(theGameSet));
-        }
-
-        // IF THE GAME IS IN STALEMATE CONDITION
-        else {
-            System.out.println("Stalemate reached.");
+            // actually execute the movement
+            simultaneousMovement(turnMulti, theGameSet, theBoard);
         }
     }
 
