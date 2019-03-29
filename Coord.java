@@ -65,7 +65,7 @@ public class Coord {
 	 * 
 	 * @param <someVal>: the given x (no restrictions)
 	 **/
-	private void setXCoord(int someVal) {
+	public void setXCoord(int someVal) {
 		coord[0] = someVal;
 		x = someVal;
 	}
@@ -85,7 +85,7 @@ public class Coord {
 	 * 
 	 * @param <someVal>: the given y (no restrictions)
 	 **/
-	private void setYCoord(int someVal) {
+	public void setYCoord(int someVal) {
 		coord[1] = someVal;
 		y = someVal;
 	}
