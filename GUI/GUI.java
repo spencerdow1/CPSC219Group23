@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.TextField;
 
 
-public class GUI extends Application implements EventHandler<KeyEvent> {
+public class GUI extends Application {
     private final int WINDOW_WIDTH = 600;
     private final int WINDOW_HEIGHT = 600;
     private Board board1 = new Board();
@@ -56,38 +56,37 @@ public class GUI extends Application implements EventHandler<KeyEvent> {
 
         primaryStage.setScene(introScene);
         primaryStage.show();
-  
+
         Group root = new Group();
         Canvas gameCanvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
         wrapperPane.getChildren().add(root);
         root.getChildren().add(gameCanvas);
 
-        for(int x = 0; x <=4 ; x += 2){
-            Rectangle pattern = new Rectangle(0* pixelsX,x* pixelsY, pixelsX, pixelsY);
+        for (int x = 0; x <= 4; x += 2) {
+            Rectangle pattern = new Rectangle(0 * pixelsX, x * pixelsY, pixelsX, pixelsY);
             root.getChildren().add(pattern);
             pattern.setFill(Color.BROWN);
-            for(int y = 1; y<4 ; y += 2){
-                Rectangle pattern2 = new Rectangle(1* pixelsX,y* pixelsY, pixelsX, pixelsY);
+            for (int y = 1; y < 4; y += 2) {
+                Rectangle pattern2 = new Rectangle(1 * pixelsX, y * pixelsY, pixelsX, pixelsY);
                 root.getChildren().add(pattern2);
                 pattern2.setFill(Color.BROWN);
-                for(int z = 0; z <=4; z+=2){
-                    Rectangle pattern3 = new Rectangle(2* pixelsX,z* pixelsY, pixelsX, pixelsY);
+                for (int z = 0; z <= 4; z += 2) {
+                    Rectangle pattern3 = new Rectangle(2 * pixelsX, z * pixelsY, pixelsX, pixelsY);
                     root.getChildren().add(pattern3);
                     pattern3.setFill(Color.BROWN);
-                    for(int w = 1; w<4 ; w += 2){
-                        Rectangle pattern4 = new Rectangle(3* pixelsX,w* pixelsY, pixelsX, pixelsY);
+                    for (int w = 1; w < 4; w += 2) {
+                        Rectangle pattern4 = new Rectangle(3 * pixelsX, w * pixelsY, pixelsX, pixelsY);
                         root.getChildren().add(pattern4);
                         pattern4.setFill(Color.BROWN);
-                        for(int u = 0; u <=4; u+=2){
-                            Rectangle pattern5 = new Rectangle(4* pixelsX,u* pixelsY, pixelsX, pixelsY);
+                        for (int u = 0; u <= 4; u += 2) {
+                            Rectangle pattern5 = new Rectangle(4 * pixelsX, u * pixelsY, pixelsX, pixelsY);
                             root.getChildren().add(pattern5);
                             pattern5.setFill(Color.BROWN);
                         }
                     }
                 }
             }
-         }
-
+        }
 
 
         //root.getChildren().add(rect);
@@ -95,40 +94,27 @@ public class GUI extends Application implements EventHandler<KeyEvent> {
         for (int y = 4; y >= 0; y--) {
             for (int x = 0; x < 5; x++) {
                 Rectangle rect = new Rectangle();
-                rect.setWidth(600/20);
-                rect.setHeight(600/20);
-               // if(board1.getSpace()[x][y] == coodinate ) {
-                	
+                rect.setWidth(600 / 20);
+                rect.setHeight(600 / 20);
+                // if(board1.getSpace()[x][y] == coodinate ) {
+
                 //}
-            //    rect.setX(board1.getSpace()[x][y] * pixelsX);
-            //    rect.setY(board1.getSpace()[x][y] * pixelsY);
+                //    rect.setX(board1.getSpace()[x][y] * pixelsX);
+                //    rect.setY(board1.getSpace()[x][y] * pixelsY);
                 root.getChildren().add(rect);
-                rect.setFill(Color.BLUE);            
-                }
+                rect.setFill(Color.BLUE);
+            }
         }
 
 
-
-        startButton.setOnAction(event-> {
+        startButton.setOnAction(event -> {
             System.out.println("Game has started.");
             primaryStage.setScene(gameScene);
 
         });
     }
+
     public static void main(String[] args) {
-    	/*
-    	board1.getSpace();
-    	for (int y = 4; y >= 0; y--) {
-            for (int x = 0; x < 5; x++) {
-                System.out.print(board1.getSpace()[x][y].getPieceToString() + " ");
-            }
-            System.out.print('\n');
-        }
-        */
-    }
-
-    @Override
-    public void handle(KeyEvent event) {
-
+        launch(args);
     }
 }

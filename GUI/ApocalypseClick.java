@@ -20,13 +20,13 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
     private int numTurnClicks = 0;
     private int numTurn = 0;
     private Coord lastClick;
-    private PsuedoApocalypse myGame;
     private ArrayList<Coord> turnCoords;
     private GridPane root;
     private Coord WhitePieceSelection;
     private Coord WhitePieceMove;
     private Coord BlackPieceSelection;
     private Coord BlackPieceMove;
+    private AIPlayer computer = new AIPlayer(0);
     GameDynamics gameDynamics = new GameDynamics();
     GameSet gameSet = new DefaultGameSet();
     Board board = new Board(gameSet);
@@ -36,19 +36,18 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
     public ApocalypseClick(int dimX, int dimY, GridPane root){
         setXSize(dimX);
         setYSize(dimY);
-        setMyGame();
         setRoot(root);
 
     }
 
 
-    public void handle(MouseEvent aClick){
+    public void handle(MouseEvent aClick) {
         numTurnClicks += 1;
 
-        xClickLoc = aClick.getSceneX()-100;
-        yClickLoc = aClick.getSceneY()-100;
-        xClickLoc = xClickLoc*5/sceneSizeX;
-        yClickLoc = yClickLoc*5/sceneSizeY;
+        xClickLoc = aClick.getSceneX() - 100;
+        yClickLoc = aClick.getSceneY() - 100;
+        xClickLoc = xClickLoc * 5 / sceneSizeX;
+        yClickLoc = yClickLoc * 5 / sceneSizeY;
         int xCoord = (int) Math.floor(xClickLoc);
         int yCoord = (int) Math.floor(yClickLoc);
         yCoord = Math.abs(yCoord - 4);
@@ -60,16 +59,41 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
         // set the team turn maybe?
 
         // Logic to send the clicks to the right location
-        if (numTurnClicks == 1){
+        if (numTurnClicks == 1) {
             setWhitePieceSelection(clickCoord);
-            myGame.setWhitePieceSelection(clickCoord);
-        }
-        else if (numTurnClicks == 2){
+
+        } else if (numTurnClicks == 2) {
             // we can re-set turn clicks back to zero here
             setWhitePieceMove(clickCoord);
-            myGame.setWhitePieceMove(clickCoord);
+
+            // re-set the turn clicks and carry out the turn //
+            // this is where we can actually carry out the simultaneous
+            // movement in the game
+
+            // increment the turn
+            numTurn += 1;
+            System.out.println("Turn number " + numTurn);
+
+            // set the movement list that the game would use
+
+
+            // this is just convenience to display in console, later
+            // change to actual movement
+
+
+            System.out.println("");
+            // re-set the turn clicks to start a new turn
+            numTurnClicks = 0;
+            root.getChildren().clear();
+            updateGui(gameDynamics, gameSet, board);
+            if (gameDynamics.winCondition(gameSet, board) == "draw" || gameDynamics.winCondition(gameSet, board) == "black"
+                    || gameDynamics.winCondition(gameSet, board) == "white") {
+                System.out.print(gameDynamics.winCondition(gameSet, board));
+                System.exit(0);
+
+            }
         }
-        else if (numTurnClicks == 3){
+        /*else if (numTurnClicks == 3){
             setBlackPieceSelection(clickCoord);
             myGame.setBlackPieceSelection(clickCoord);
         }
@@ -112,6 +136,7 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
             }
         }
 
+    }*/
     }
 
     public ArrayList<Piece> getList() {
@@ -124,11 +149,6 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
 
     public void setRoot(GridPane root){
         this.root = root;
-    }
-
-
-    public void setMyGame(){
-        myGame = new PsuedoApocalypse();
     }
 
     public void setWhitePieceSelection(Coord whitePieceSelection) {
@@ -166,9 +186,7 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
     // we don't want to have to worry about a constructor which will produce a
     // copy of the game for the given state, we are not concerned about
     // privacy leaks here. We're all consenting adults here.
-    public PsuedoApocalypse getMyGame(){
-        return myGame;
-    }
+
 
     public void setLastClick(int x, int y){
         lastClick = new Coord(x, y);
@@ -204,8 +222,8 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
 
 
     public void updateGui(GameDynamics gameDynamics, GameSet gameSet, Board board){
-            gameDynamics.moveWithUserInput(board, getWhitePieceSelection(), getWhitePieceMove(),
-                    getBlackPieceSelection(), getBlackPieceMove(), list, gameSet);
+            gameDynamics.moveWithAI(board, getWhitePieceSelection(), getWhitePieceMove(),
+                     list, gameSet, computer);
             list = gameSet.getGamePieces();
 
         int count = 0;

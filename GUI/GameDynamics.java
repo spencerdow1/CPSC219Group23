@@ -285,22 +285,24 @@ public class GameDynamics extends Movement {
 
     }
     public void moveWithAI(Board board , Coord currentPositionWhite, Coord desiredPositionWhite,
-                                  ArrayList<Piece> gamePieces, GameSet gameSet){
+                                  ArrayList<Piece> gamePieces, GameSet gameSet, AIPlayer computerPlayer){
         Piece selectedPieceWhite = null;
         Piece selectedPieceBlack = null;
-        ArrayList<Coord> whiteTurn, blackTurn;
+        ArrayList<Coord> blackTurn;
 
 
         Scanner keyboard = new Scanner(System.in);
         selectedPieceWhite = gameSet.getPieceByCoord(currentPositionWhite);
+        blackTurn = computerPlayer.chooseMove(gameSet, board);
+        selectedPieceBlack = gameSet.getPieceByCoord(blackTurn.get(0));
+
 
 
 
         blackTurn = computerPlayer.chooseMove(gameSet, board);
+
         if(legalMove(selectedPieceWhite, board, desiredPositionWhite)
-                && moveCorrectColorPiece(selectedPieceWhite) == "white"
-                && legalMove(selectedPieceBlack, board, blackTurn.get(1) )
-                && moveCorrectColorPiece(selectedPieceBlack) == "black"){
+                && moveCorrectColorPiece(selectedPieceWhite) == "white") {
 
 
             ArrayList<Coord> moves = new ArrayList<>();
