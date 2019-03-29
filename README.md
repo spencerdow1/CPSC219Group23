@@ -3,45 +3,18 @@
 CPSC 219 Group 23
 
 ## Files
-Coord.java, Knight.java, Main.java, Pawn.java, Piece.java, PieceType.java, Player.java, PlayerTeam.java, Space.java , Board.Java
+Text Based: AIPlayer.java, ApocalypseTerminal.java, Board.java, Coord.java, CustomGameSet.java, DefaultGameSet.java, GameDynamicsTerminal.java, GameSet.java, HumanPlayer.java, Movement.java, Piece.java, Player.java
 
-Coord.java creates coordinates used through the program to reference specific spaces
-
-Piece.Java creates pieces with types(Pawn and Knight) and teams (Black and White)
-
-Piece.Type creates types of pieces.
-
-Pawn.Java sets allowable movements for pieces of type pawn.
-
-Knight.Java sets allowable moves for knights.
-
-Player.java creates new players with names and teams.
-
-PlayerTeam.Java creates teams black and white.
-
-Space.Java creates spaces that will populate the board with a piece. 
-
-Board.Java initializes the starting game board, takes user input runs movement and validates moves for the game as well as checks for a condition to stop the game.
-
-Main.java initializes with user input the players and runs the game
-
-Controller.java
-
-MainController.java
-
-GameBoard.Java
-
-MainMenu.FXML
-
-sample.FXML
+GUI Version (All in the GUI package): AIPlayer.java, ApocalypseClick.java, Board.java, Coord.java, CustomGameSet.java, DefaultGameSet.java, GameDynamics.java, GameSet.java, GUIBOARD.java, HumanPlayer.java, MainMenu, Movement.java, Piece.java, Player.java, black_knight.png, black_pawn.png, white_knight.png, white_pawn.java
 
 ### Prerequisites
-Jdk.9.0.4
+Java
+JavaFX
 
 Files included in this pakage
 
 ### Get Started
-To run this project,you must first download jdk.9.0.4 and set a path to this in your eclipse, then you can create a new java project in eclipse, copy the sample flie into the src folder. Simply run the GameBoard Class to start the game.
+To run this project you can create a new java project in eclipse, copy the flies into the src folder. Simply run the ApocalypseTerminal Class to start the text game or the Mainmenu class in the GUI package to run the GUI version.
 
 ## Instructions on How To Play
 
