@@ -1,3 +1,5 @@
+package GUI;
+
 /**
  * This is a convenience class for dealing with two tuples of integers for use
  * in the Apocalypse board. There are no restrictions on allowed x and y values.
@@ -65,7 +67,7 @@ public class Coord {
 	 * 
 	 * @param <someVal>: the given x (no restrictions)
 	 **/
-	public void setXCoord(int someVal) {
+	private void setXCoord(int someVal) {
 		coord[0] = someVal;
 		x = someVal;
 	}
@@ -85,7 +87,7 @@ public class Coord {
 	 * 
 	 * @param <someVal>: the given y (no restrictions)
 	 **/
-	public void setYCoord(int someVal) {
+	private void setYCoord(int someVal) {
 		coord[1] = someVal;
 		y = someVal;
 	}
