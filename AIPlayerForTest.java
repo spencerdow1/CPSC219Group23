@@ -2,20 +2,20 @@
 import java.util.Random;
 import java.util.ArrayList;
 
-public class AIPlayer extends Player{
+public class AIPlayerForTest extends Player{
 
     private Random rand = new Random();
     private int difficulty;
     private Movement aIMoves = new Movement();
 
 
-    public AIPlayer(int aDifficulty){
+    public AIPlayerForTest(int aDifficulty){
     	super("Computer");
         setDifficulty(aDifficulty);
     }
 
 
-    public AIPlayer(AIPlayer aComputerPlayer){
+    public AIPlayerForTest(AIPlayer aComputerPlayer){
     	super(aComputerPlayer);
     	setDifficulty(aComputerPlayer.getDifficulty());
     }
@@ -43,7 +43,7 @@ public class AIPlayer extends Player{
     * will be used to generate the ArrayList<Coord> of moves 
     *
     **/
-    public ArrayList<Coord> chooseMove(GameSet currentGameSet,
+    public ArrayList<Coord> chooseMoveBlack(GameSet currentGameSet,
         Board currentBoard){
         
         ArrayList<Coord> chosenMove;
@@ -58,7 +58,7 @@ public class AIPlayer extends Player{
         }
 
         else if (theDifficulty == 1){
-            chosenMove = levelOneMovement(blackPieces, currentBoard,
+            chosenMove = levelOneBlackMovement(blackPieces, currentBoard,
                 allMoves);
         }
 
@@ -70,11 +70,38 @@ public class AIPlayer extends Player{
     }
 
 
+    /** This function is a duplicate of chooseMove, but for the white
+    * (usually human) team. This is to test AI versus AI. Otherwise chooseMove
+    * is assumed to be black.
+    * @see chooseMove(GameSet currentGameSet, Board currentBoard)
+    **/
+    public ArrayList<Coord> chooseMoveWhite(GameSet currentGameSet,
+        Board currentBoard){
+        
+        ArrayList<Coord> chosenMove;
+        ArrayList<Piece> whitePieces = currentGameSet.getWhitePieces();
+        ArrayList<ArrayList<Coord>> allMoves = generateAllMoves(whitePieces,
+            currentBoard);
+
+        int theDifficulty = getDifficulty();
+
+        if (theDifficulty == 0){
+            chosenMove = randomMovement(whitePieces, allMoves);
+        }
+
+        else {
+            chosenMove = randomMovement(whitePieces, allMoves);
+        }
+
+        return chosenMove;
+    }
+
+
     /** This function will generate all the integers which represent the
     value of a move 
     *
     **/
-    public ArrayList<ArrayList<Integer>> levelOneChoices(ArrayList<Piece> theBlackPieces,
+    public ArrayList<ArrayList<Integer>> levelOneBlackChoices(ArrayList<Piece> theBlackPieces,
         Board theBoard, ArrayList<ArrayList<Coord>> theMoves){
         ArrayList<Integer> moveValues;
         ArrayList<Coord> possibleMoves;
@@ -106,11 +133,11 @@ public class AIPlayer extends Player{
                     // PLACE A VALUE ON THE MOVE
                     theMove = possibleMoves.get(j);
                     if (thePiece.getType().equals("pawn")){
-                        moveValue = valuePawnMoveLevelOne(theBoard,
+                        moveValue = valueBlackPawnMoveLevelOne(theBoard,
                             theMove, numPawns);
                     }
                     else if (thePiece.getType().equals("knight")){
-                        moveValue = valueKnightMoveLevelOne(theBoard,
+                        moveValue = valueBlackKnightMoveLevelOne(theBoard,
                             theMove, numPawns);
                     }
                     else {
@@ -134,7 +161,7 @@ public class AIPlayer extends Player{
     /** This function takes all the arguments to pass to levelOneChoices
     * and will use weighted random values to make a selection
     **/
-    public ArrayList<Coord> levelOneMovement(ArrayList<Piece> theBlackPieces,
+    public ArrayList<Coord> levelOneBlackMovement(ArrayList<Piece> theBlackPieces,
         Board theBoard, ArrayList<ArrayList<Coord>> theMoves){
 
         // set the AI up to return the choices
@@ -146,10 +173,10 @@ public class AIPlayer extends Player{
 
         // variables necessary to make a choice using a CDF random 
         // technique
-        ArrayList<ArrayList<Integer>> values;
+        ArrayList<ArrayList<Integer>> values = levelOneBlackChoices(theBlackPieces,
+            theBoard, theMoves);
         ArrayList<Integer> choiceValues;
         ArrayList<Integer> tempChoices;
-        values = levelOneChoices(theBlackPieces, theBoard, theMoves);
         int numPieceChoices = values.size();
         int numChoices;
         int total = 0;
@@ -171,11 +198,13 @@ public class AIPlayer extends Player{
         }
 
         // choose a value in the CDF between 0 and total
+        System.out.println("The Total is: "+total);
         if (total == 0){
             aIChoice = randomMovement(theBlackPieces, theMoves);
         }
         else {
         int randomChoice = rand.nextInt(total);
+        System.out.println("The random choice is: "+randomChoice);
 
         // loop through to find that choice based on the CDF and random
         // integer chosen
@@ -197,23 +226,52 @@ public class AIPlayer extends Player{
             }
         }
 
+        System.out.println("The available values for choices are:");
+        for (int i=0; i<values.size(); i++){
+            ArrayList<Integer> someValues = values.get(i);
+            System.out.print("[");
+            for (int j=0; j<someValues.size(); j++){
+                System.out.print(someValues.get(j)+", ");
+            }
+            System.out.print("],  ");
+        }
+        System.out.println("");
+
+        System.out.print("The choices it made are: ");
+        System.out.println(indexCoord.toString()); System.out.println("");
+
+
+        System.out.print("The pieces available are: ");
+        for (int i=0; i<theBlackPieces.size(); i++){
+            Piece somePiece = theBlackPieces.get(i);
+            System.out.print(somePiece.getName()+", ");
+        }
+        System.out.println("");
+
 
         // pull the move coordinates from the piece array and move array
         pieceChoice = theBlackPieces.get(indexCoord.getXCoord());
         pieceChoicePosition = pieceChoice.getPosition();
+        System.out.print("Getting available moves: ");
         ArrayList<Coord> availableMoves = theMoves.get(indexCoord.getXCoord());
+        for (int i=0; i<availableMoves.size(); i++){
+            System.out.print(availableMoves.get(i) + ", ");
+        }
+        System.out.println("");
 
         moveChoice = availableMoves.get(indexCoord.getYCoord());
+        System.out.print("Black chose: ");
+        System.out.println(moveChoice.toString());
 
         aIChoice.add(pieceChoicePosition);
         aIChoice.add(moveChoice);
         }
-        
+
         return aIChoice;
     }
 
 
-    public int valuePawnMoveLevelOne(Board aBoard, Coord aMove, int pawns){
+    public int valueBlackPawnMoveLevelOne(Board aBoard, Coord aMove, int pawns){
 
         Piece referencePiece = aBoard.getPiece(aMove);
         int points = 0;
@@ -271,7 +329,7 @@ public class AIPlayer extends Player{
     }
 
 
-    public int valueKnightMoveLevelOne(Board aBoard, Coord aMove, int pawns){
+    public int valueBlackKnightMoveLevelOne(Board aBoard, Coord aMove, int pawns){
         int points = 0;
         int x = aMove.getXCoord();
         int y = aMove.getYCoord();
@@ -314,6 +372,46 @@ public class AIPlayer extends Player{
     }
 
 
+    /** This evaluates the value of the position of the knight **/
+    // public int valueKnightPosition(Piece aReferencePiece, Coord theMove,
+    //     Coord possibleMove, int pawns){
+    //     // there is a piece there so compute its value
+    //     if (aReferencePiece != null){
+    //         if (theMove.equals(possibleMove)){
+    //             // capturing a knight is worth 5
+    //             if (aReferencePiece.getType().equals("knight")){
+    //                 currentPoints += 5;
+    //             }
+    //             // capturing a pawn value depends on the number
+    //             // of pawns on the board
+    //             else {
+    //                 if (pawns == 5 || pawns == 4){
+    //                     currentPoints += 2;
+    //                 }
+    //                 if (pawns == 3){
+    //                     currentPoints += 3;
+    //                 }
+    //                 if (pawns == 2){
+    //                     currentPoints += 5;
+    //                 }
+    //                 if (pawns == 1){
+    //                     currentPoints = 10;
+    //                 }
+    //             }
+    //         }
+    //         // threatening a knight is worth 3
+    //         else if (referencePiece.getType().equals("knight")){
+    //             currentPoints += 3;
+    //         }
+    //         // threatening a pawn is worth 1
+    //         else {
+    //             currentPoints += 1;
+    //         }
+    //     }
+    //     return 0;
+    // }
+
+
     public int getNumPawns(ArrayList<Piece> pieceList){
         int num = 0;
         for (Piece aPiece : pieceList){
@@ -323,6 +421,27 @@ public class AIPlayer extends Player{
         }
         return num;
     }
+
+
+    // public int ValueKnightMoveLevelTwo(Piece aPiece, Board aBoard,
+    //         Coord aMove, ArrayList<Coord> moves, int pawns){
+
+    //     // coputes the value of leaving the piece where it is
+    //     int currentPoints = valueKnightPosition(aPiece, aBoard, moves);
+    
+    //     // artificially move the piece to the location by creating a
+    //     // psuedopiece which we can then pass into genMoves. the psuedo-
+    //     // piece is an exact copy but with the move coordinates.
+    //     Piece psuedoPiece = new Piece(aPiece.getType(), aPiece.getColour(),
+    //         aMove, aPiece.getName());
+
+    //     // generate the moves of the psuedo-move
+    //     ArrayList<Coord> psuedoMoves = aIMoves.genMoves(psuedoPiece, aBoard);
+
+    //     // compute the value of the new position of the psuedo-piece
+    //     int newPoints = valueKnightPosition(psuedoPiece, aBoard, psuedoMoves);
+    //     return 0;
+    // }
 
 
     public ArrayList<ArrayList<Coord>> generateAllMoves(
