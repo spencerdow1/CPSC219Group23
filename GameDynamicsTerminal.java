@@ -4,10 +4,6 @@ import java.util.Scanner;
 
 
 public class GameDynamicsTerminal extends Movement {
-    GameSet gameSet = new DefaultGameSet();
-    Board board = new Board(gameSet);
-    Piece[][] currentBoard = new Piece[5][5];
-    ArrayList<Piece> gamePieces = gameSet.getGamePieces();
     String playerOneName = "player 1";
     String playerTwoName = "player 2";
     Player playerOne;
