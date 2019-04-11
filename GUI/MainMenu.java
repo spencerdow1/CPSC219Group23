@@ -18,12 +18,19 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
+import Logic.*;
 
 public class MainMenu extends Application{
-	 //private Player white = new Player(PlayerTeam.White);
-	 //private Player black = new Player(PlayerTeam.Black);
+	 private Player white = new HumanPlayer();
+	 private Player black = new HumanPlayer();
 	 private Board board = new Board();
-	 GUIBOARD gui = new GUIBOARD();
+	 private String diff = "";
+	 GUIFileIO highscore = new GUIFileIO();
+	 GUIBOARD gui = new GUIBOARD(white, black, diff);
+
+	public void setDiff(String diff) {
+		this.diff = diff;
+	}
 
 	public static void main(String[] args) {
 	launch(args);
@@ -43,7 +50,7 @@ public class MainMenu extends Application{
 	
 	Scene scene = new Scene(root, xSceneLayout, ySceneLayout, Color.BLACK);
 	
-	apocLabel.setLayoutX(xSceneLayout / 20);
+	apocLabel.setLayoutX(xSceneLayout /4);
 	apocLabel.setLayoutY(ySceneLayout / 6);
 	apocLabel.setFont(Font.font("Mistral", FontWeight.EXTRA_BOLD, 50));
 	apocLabel.setTextFill(Color.DARKRED);
@@ -69,43 +76,36 @@ public class MainMenu extends Application{
 	singleButton.setToggleGroup(group); 
 	multiButton.setToggleGroup(group); 
 	
-	//this one make it more aesthetically pleasing by not iluminating player 1 name
-	TextField random = new TextField("");
-	random.setPrefWidth(-80);
-	random.setLayoutX(-80);
-	random.setLayoutY(ySceneLayout / 2.5);
-	//firstName.setStyle("-fx-background-color:DarkSlateGrey ");
-	root.getChildren().add(random);
 	
-	TextField firstName = new TextField("Player 1");
+	TextField firstName = new TextField("Player One");
 	firstName.setPrefWidth(100);
 	firstName.setLayoutX(80);
 	firstName.setLayoutY(ySceneLayout / 2.5);
 	firstName.setStyle("-fx-background-color:BLACK;-fx-text-fill: BLACK  ");
-	root.getChildren().add(firstName);
 	
-	TextField secondName = new TextField("Player 2");
+	
+	TextField secondName = new TextField("Computer");
 	secondName.setPrefWidth(100);
 	secondName.setLayoutX(230);
 	secondName.setLayoutY(ySceneLayout / 2.5);
 	secondName.setStyle("-fx-background-color:BLACK;-fx-text-fill: BLACK  ");
-	root.getChildren().add(secondName);
+	
 	
 	ChoiceBox<String> selectDiff = new ChoiceBox<>(
-	FXCollections.observableArrayList("Choose Difficulty","Beginner", "Intermediate", "Master"));
+	FXCollections.observableArrayList("Beginner", "Advanced"));
 	selectDiff.setLayoutX(145);
 	selectDiff.setLayoutY(350);
-	selectDiff.setValue("Choose Difficulty");
+	selectDiff.setValue("Beginner");
 	selectDiff.setStyle("-fx-background-color:LightCoral   ");
-	root.getChildren().add(selectDiff);
+	
 	
 	Button startButton = new Button("START GAME");
 	startButton.setLayoutX(140);
 	startButton.setLayoutY(450);
 	startButton.setFont(Font.font("Mistral", FontWeight.EXTRA_BOLD, 25));
 	startButton.setStyle("-fx-background-color:BLACK");
-	startButton.setTextFill(Color.BLACK);
-	root.getChildren().add(startButton);
+	startButton.setTextFill(Color.DARKRED);
+	
 	
 	Button instructionButton = new Button("Instructions");
 	instructionButton.setLayoutX(xSceneLayout-xSceneLayout);
@@ -123,30 +123,69 @@ public class MainMenu extends Application{
 	readmeButton.setTextFill(Color.WHITE);
 	root.getChildren().add(readmeButton);
 	
+	Button highscores = new Button("HighScores");
+	highscores.setLayoutX(xSceneLayout-240);
+	highscores.setLayoutY(575);
+	highscores.setFont(Font.font("Arial Black", FontWeight.EXTRA_BOLD, 12));
+	highscores.setStyle("-fx-background-color:BLACK");
+	highscores.setTextFill(Color.WHITE);
+	root.getChildren().add(highscores);
+	
+	
 	//change single player to one selected
 	singleButton.setOnAction(e -> {
 	singleButton.setTextFill(Color.WHITE);
 	multiButton.setTextFill(Color.DARKRED);
 	firstName.setStyle("-fx-background-color:LightCoral  ");
 	secondName.setStyle("-fx-background-color:BLACK;-fx-text-fill: BLACK  ");
+	secondName.setText("Computer");
 	startButton.setTextFill(Color.DARKRED);
+	root.getChildren().add(selectDiff);
+	root.getChildren().remove(firstName);
+	root.getChildren().add(firstName);
+	root.getChildren().remove(startButton);
+	root.getChildren().add(startButton);
+	
 	});
+	
+	
+		
 	
 	//change to multiplayer mode
 	multiButton.setOnAction(e -> {
 	                multiButton.setTextFill(Color.WHITE);
 	singleButton.setTextFill(Color.DARKRED);
 	firstName.setStyle("-fx-background-color:LightCoral  ");
+	secondName.setText("Player Two");
 	secondName.setStyle("-fx-background-color:LightCoral  ");
 	startButton.setTextFill(Color.DARKRED);
+	root.getChildren().remove(secondName);
+	root.getChildren().remove(firstName);
+	root.getChildren().add(firstName);
+	root.getChildren().add(secondName);
+	root.getChildren().remove(selectDiff);
+	root.getChildren().remove(startButton);
+	root.getChildren().add(startButton);
 	});
-	
+	highscores.setOnAction(e -> {
+		Stage a = new Stage();
+		try{
+			highscore.start(a);
+		} catch (Exception e1){
+			e1.printStackTrace();
+		}
+			});
 	startButton.setOnAction(e -> {
-
-	//white.setPlayerName(firstName.getText());
-    //black.setPlayerName(secondName.getText());
 	
-    //System.out.print(white.playerName);
+	white.setName(firstName.getText());
+    black.setName(secondName.getText());
+    
+    
+    
+    
+    setDiff(selectDiff.getValue());
+    GUIBOARD gui = new GUIBOARD(white, black, diff);
+    
     Stage s = new Stage();
 	gui.start(s);
 	primaryStage.close();
