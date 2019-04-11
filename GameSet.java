@@ -1,3 +1,6 @@
+package GUI;
+
+import GUI.Piece;
 
 import java.util.ArrayList;
 

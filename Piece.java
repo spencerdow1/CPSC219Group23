@@ -1,3 +1,5 @@
+package GUI;
+
 public class Piece {
 
 
@@ -5,6 +7,16 @@ public class Piece {
 	private String type;
 	private String colour;
 	private String name;
+	private boolean isHighlighted;
+
+	public boolean isHighlighted() {
+		return isHighlighted;
+	}
+
+
+	public void setHighlighted(boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
+	}
 
 
 	public Piece() {
@@ -12,6 +24,7 @@ public class Piece {
 		setType("NULL");
 		setColour("NULL");
 		setName("NULL");
+		setHighlighted(!isHighlighted);
 	}
 
 
@@ -22,6 +35,7 @@ public class Piece {
 		setColour(initialColour);
 		setPosition(initialCoord);
 		setName(initialName);
+		setHighlighted(!isHighlighted);
 	}
 
 

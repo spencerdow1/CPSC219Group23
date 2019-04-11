@@ -1,3 +1,4 @@
+package GUI;
 
 public abstract class Player{
 
@@ -17,7 +18,12 @@ public abstract class Player{
 	}
 
 	public void setName(String aName){
-		name = aName;
+		this.name = aName;
+	}
+
+	public void setName(Player white) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
