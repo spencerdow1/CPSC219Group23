@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import Logic.*;
 
 import static java.lang.Math.abs;
 
@@ -60,9 +61,9 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
 
         // Logic to send the clicks to the right location
         if (numTurnClicks == 1) {
-        	
-        	setHighlightedPiece (clickCoord);
+        	setHighlightedPiece(clickCoord);
             setWhitePieceSelection(clickCoord);
+
         
        
             updateGui(gameDynamics, gameSet, board);
@@ -94,6 +95,8 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
             // re-set the turn clicks to start a new turn
             numTurnClicks = 0;
             root.getChildren().clear();
+            gameDynamics.moveWithAI(board, getWhitePieceSelection(), getWhitePieceMove(),
+                    list, gameSet, computer);
             updateGui(gameDynamics, gameSet, board);
             if (gameDynamics.winCondition(gameSet, board) == "draw" || gameDynamics.winCondition(gameSet, board) == "black"
                     || gameDynamics.winCondition(gameSet, board) == "white") {
@@ -231,8 +234,6 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
 
 
     public void updateGui(GameDynamics gameDynamics, GameSet gameSet, Board board){
-            gameDynamics.moveWithAI(board, getWhitePieceSelection(), getWhitePieceMove(),
-                     list, gameSet, computer);
             list = gameSet.getGamePieces();
         int count = 0;
         int rowNum = 5;
