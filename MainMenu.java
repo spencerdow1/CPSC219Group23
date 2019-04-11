@@ -18,12 +18,21 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
+import Logic.*;
 
 public class MainMenu extends Application{
 	 private Player white = new HumanPlayer();
 	 private Player black = new HumanPlayer();
 	 private Board board = new Board();
-	 GUIBOARD gui = new GUIBOARD(white, black);
+	 private String diff = "";
+	 GUIFileIO highscore = new GUIFileIO();
+	 GUIBOARD gui = new GUIBOARD(white, black, diff);
+	 GUIreadme readme = new GUIreadme();
+	 GUIinstructions instructions = new GUIinstructions();
+
+	public void setDiff(String diff) {
+		this.diff = diff;
+	}
 
 	public static void main(String[] args) {
 	launch(args);
@@ -85,10 +94,10 @@ public class MainMenu extends Application{
 	
 	
 	ChoiceBox<String> selectDiff = new ChoiceBox<>(
-	FXCollections.observableArrayList("Choose Difficulty","Beginner", "Intermediate", "Master"));
+	FXCollections.observableArrayList("Beginner", "Advanced"));
 	selectDiff.setLayoutX(145);
 	selectDiff.setLayoutY(350);
-	selectDiff.setValue("Choose Difficulty");
+	selectDiff.setValue("Beginner");
 	selectDiff.setStyle("-fx-background-color:LightCoral   ");
 	
 	
@@ -124,7 +133,17 @@ public class MainMenu extends Application{
 	highscores.setTextFill(Color.WHITE);
 	root.getChildren().add(highscores);
 	
-	
+	instructionButton.setOnAction(e -> {
+		Stage c = new Stage();
+		try {
+			instructions.start(c);
+		} catch (Exception e1) {
+			
+			e1.printStackTrace();
+		}
+		
+		
+	});
 	//change single player to one selected
 	singleButton.setOnAction(e -> {
 	singleButton.setTextFill(Color.WHITE);
@@ -140,6 +159,19 @@ public class MainMenu extends Application{
 	root.getChildren().add(startButton);
 	
 	});
+	readmeButton.setOnAction(e ->{
+	Stage b = new Stage();
+	try {
+		readme.start(b);
+	} catch (Exception e1) {
+		
+		e1.printStackTrace();
+	}
+	
+	
+	
+	});
+	
 	
 	
 		
@@ -160,17 +192,23 @@ public class MainMenu extends Application{
 	root.getChildren().remove(startButton);
 	root.getChildren().add(startButton);
 	});
-	
+	highscores.setOnAction(e -> {
+		Stage a = new Stage();
+		try{
+			highscore.start(a);
+		} catch (Exception e1){
+			e1.printStackTrace();
+		}
+			});
 	startButton.setOnAction(e -> {
 	
 	white.setName(firstName.getText());
     black.setName(secondName.getText());
     
+
+    setDiff(selectDiff.getValue());
     
-    
-    
-    System.out.println(selectDiff.getValue());
-    
+    GUIBOARD gui = new GUIBOARD(white, black, diff);
     
     Stage s = new Stage();
 	gui.start(s);
