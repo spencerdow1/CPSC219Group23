@@ -23,7 +23,7 @@ To run this project you can create a new java project in eclipse, copy the flies
 Apocalypse is a variation of the game chess played on a 5x5 board.  Each Player has two knights and two pawns. The pieces can be moved and captured identical to chess. The game can either be played against an AI or against another individual.
 
 ### Movement
-Moves are done simultaneously. This means in each turn, the players chooses their move without knowledge of the other, then moves are executed on the board at the same time. If two pawns or two knights are moved to the same position on the board,they are both removed from the board. If a knight from one player and a pawn from another are moved to the same spot then the pawn is captured by the knight.If a pawn reaches the opponents side of the board, then the pawn is upgraded to a knight.
+Moves are done simultaneously. This means in each turn, the players chooses their move without knowledge of the other, then moves are executed on the board at the same time. If two pawns or two knights are moved to the same position on the board,they are both removed from the board. If a knight from one player and a pawn from another are moved to the same spot then the pawn is captured by the knight. If a pawn reaches the opponents side of the board, then the pawn is upgraded to a knight.
 
 ### To Win
 To win the game a player must either: Capture all of the players pawns or the opponent is unable to make a move.
