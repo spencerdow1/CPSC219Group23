@@ -19,7 +19,14 @@ public class GameDynamicsTerminal extends GameDynamics {
 
         AIPlayer computerPlayer;
 
+        public GameDynamicsTerminal(){
 
+        }
+    /**
+     * Constructor that initializes two players
+     * @param playerOne
+     * @param playerTwo
+     */
         public GameDynamicsTerminal(Player playerOne, Player playerTwo){
 
             this.playerOne = playerOne;
@@ -33,9 +40,11 @@ public class GameDynamicsTerminal extends GameDynamics {
         }
 
 
-
-
-
+    /**
+     * Constructor that initializes a human and AI player
+     * @param playerOne
+     * @param aComputerPlayer
+     */
         public GameDynamicsTerminal(Player playerOne, AIPlayer aComputerPlayer){
 
             this.playerOne = playerOne;
@@ -48,6 +57,11 @@ public class GameDynamicsTerminal extends GameDynamics {
 
         }
 
+    /**
+     * runs the game with the a human and AI player
+     * @param theGameSet
+     * @param theBoard
+     */
         public void runSinglePlayer(GameSet theGameSet, Board theBoard){
 
 
@@ -101,9 +115,11 @@ public class GameDynamicsTerminal extends GameDynamics {
         }
 
 
-
-
-
+    /**
+     * runs the two player version of the game
+     * @param theGameSet
+     * @param theBoard
+     */
         public void runMultiplayer(GameSet theGameSet, Board theBoard){
 
 
@@ -171,9 +187,10 @@ public class GameDynamicsTerminal extends GameDynamics {
         }
 
 
-
-
-
+    /**
+     * gets the coord from the user input
+     * @return
+     */
         public Coord getCoordFromInput(){
 
             Scanner keyboard = new Scanner(System.in);
@@ -239,9 +256,12 @@ public class GameDynamicsTerminal extends GameDynamics {
         }
 
 
-
-
-
+    /**
+     * gets the user inputs
+     * @param color
+     * @param aBoard
+     * @return
+     */
         public ArrayList<Coord> getUserInput(String color, Board aBoard){
 
             Scanner keyboard = new Scanner(System.in);

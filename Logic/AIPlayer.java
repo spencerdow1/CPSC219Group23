@@ -21,9 +21,10 @@ public class AIPlayer extends Player{
     private Movement aIMoves = new Movement();
 
 
-
-
-
+    /**
+     *
+     * @param aDifficulty
+     */
     public AIPlayer(int aDifficulty){
 
         super("Computer");
@@ -33,9 +34,10 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     *
+     * @param aComputerPlayer
+     */
     public AIPlayer(AIPlayer aComputerPlayer){
 
         super(aComputerPlayer);
@@ -45,9 +47,10 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     *
+     * @return
+     */
     public int getDifficulty(){
 
         int copyDifficulty = difficulty;
@@ -57,9 +60,10 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     *
+     * @param someDifficulty
+     */
     public void setDifficulty(int someDifficulty){
 
         if (someDifficulty >= 0 && someDifficulty < 2){
@@ -545,9 +549,13 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     * enumerates the knights possible moves
+     * @param aBoard
+     * @param aMove
+     * @param pawns
+     * @return
+     */
     public int valueKnightMoveLevelOne(Board aBoard, Coord aMove, int pawns){
 
         int points = 0;
@@ -631,9 +639,11 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     * gets the number of pawns
+     * @param pieceList
+     * @return
+     */
     public int getNumPawns(ArrayList<Piece> pieceList){
 
         int num = 0;
@@ -653,9 +663,12 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     * generates all moves
+     * @param pieces
+     * @param aBoard
+     * @return
+     */
     public ArrayList<ArrayList<Coord>> generateAllMoves(
 
             ArrayList<Piece> pieces, Board aBoard){
@@ -683,9 +696,12 @@ public class AIPlayer extends Player{
     }
 
 
-
-
-
+    /**
+     * produces a random move
+     * @param pieces
+     * @param givenMoves
+     * @return
+     */
     public ArrayList<Coord> randomMovement(ArrayList<Piece> pieces,
 
                                            ArrayList<ArrayList<Coord>> givenMoves){
@@ -784,64 +800,33 @@ public class AIPlayer extends Player{
 
     }
 
-
-
-
-
     public void printOptions(ArrayList<Piece> pieces, Board aBoard){
 
-
-
         int numPieces = pieces.size();
-
         int numMoves;
-
         String thePieceName;
-
         ArrayList<Coord> moveArray;
-
         Coord aMove;
 
-
-
         for (int i = 0; i < numPieces; i++){
-
             Piece thePiece = pieces.get(i);
-
             thePieceName = thePiece.getName();
-
             System.out.print(thePieceName+" moves are:  ");
 
-
-
             moveArray = aIMoves.genMoves(thePiece, aBoard);
-
             numMoves = moveArray.size();
-
             for (int j=0; j < numMoves; j++){
-
                 aMove = moveArray.get(j);
-
                 if (j == numMoves - 1){
-
                     System.out.println(aMove.toString());
-
                 }
-
                 else {
-
                     System.out.print(aMove.toString()+", ");
-
                 }
-
-
 
             }
-
         }
-
     }
-
 
 
 

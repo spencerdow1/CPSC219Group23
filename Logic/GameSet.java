@@ -8,6 +8,9 @@ public abstract class GameSet{
 	private ArrayList<Piece> blackPieces;
 	private ArrayList<Piece> gamePieces;
 
+    /**
+     * creates an empty game set
+     */
 	public GameSet(){
 		// default everything to zero
 		whitePieces = new ArrayList<Piece>();
@@ -24,12 +27,19 @@ public abstract class GameSet{
         setWhiteAndBlackPieces(gamePieces);
 	}
 
-
+    /**
+     *
+     * @return
+     */
 	public int getSize(){
 		int theSize = gamePieces.size();
 		return theSize;
 	}
 
+    /**
+     * remove piece from the list of pieces by index
+     * @param index
+     */
 	public void removePiece(int index){
         ArrayList<Piece> copyList = new ArrayList<Piece>();
         for (int i=0; i<gamePieces.size(); i++){
@@ -41,6 +51,11 @@ public abstract class GameSet{
         setWhiteAndBlackPieces(gamePieces);
 	}
 
+    /**
+     * removes two pieces from the list
+     * @param n
+     * @param m
+     */
 	public void removePieces(int n, int m){
         ArrayList<Piece> copyList = new ArrayList<Piece>();
         for (int i=0; i<gamePieces.size(); i++){
@@ -52,18 +67,29 @@ public abstract class GameSet{
         setWhiteAndBlackPieces(gamePieces);
 	}
 
+    /**
+     * gets a list of all the white pieces from the game list
+     * @return
+     */
 	public ArrayList<Piece> getWhitePieces(){
         ArrayList<Piece> copyList = new ArrayList<Piece>(whitePieces);
         return copyList;
 	}
 
+    /**
+     * gets a list of all the black pieces from the game list
+     * @return
+     */
 	public ArrayList<Piece> getBlackPieces(){
         ArrayList<Piece> copyList = new ArrayList<Piece>(blackPieces);
         return copyList;
 	}
 
-
-    protected void setWhiteAndBlackPieces(ArrayList<Piece> aPieceList){
+    /**
+     * sets the all the pieces in an array list
+     * @param aPieceList
+     */
+    public void setWhiteAndBlackPieces(ArrayList<Piece> aPieceList){
         String theColour;
         whitePieces = new ArrayList<Piece>();
         blackPieces = new ArrayList<Piece>();
@@ -83,18 +109,29 @@ public abstract class GameSet{
         }
     }
 
-
+    /**
+     * gets the list of game pieces
+     * @return
+     */
 	public ArrayList<Piece> getGamePieces(){
         ArrayList<Piece> copyList = new ArrayList<Piece>(gamePieces);
         return copyList;
 	}
 
-
+    /**
+     * gets the piece
+     * @param i
+     * @return
+     */
     public Piece getPiece(int i){
         return gamePieces.get(i);
     }
 
-
+    /**
+     *  gets a piece copy from the game set
+     * @param i
+     * @return
+     */
     public Piece getPieceCopyFromSet(int i){
     	Piece copyPiece;
 
@@ -109,13 +146,19 @@ public abstract class GameSet{
         return copyPiece;	
     }
 
-
+    /**
+     * sets all the game pieces
+     * @param aPieceList
+     */
 	protected void setGamePieces(ArrayList<Piece> aPieceList){
         gamePieces = new ArrayList<Piece>(aPieceList);
         setWhiteAndBlackPieces(aPieceList);
 	}
 
-
+    /**
+     * converts gameset to a string
+     * @return
+     */
     public String toString(){
         int numPieces = gamePieces.size();
         String pieceName;

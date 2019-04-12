@@ -6,12 +6,18 @@ public class CustomGameSet extends GameSet {
 
 	ArrayList<Piece> customSet;
 
-
+    /**
+     * creates a game set
+     * @param aGameSet
+     */
 	public CustomGameSet(ArrayList<Piece> aGameSet){
         super.setGamePieces(aGameSet);
 	}
 
-
+    /**
+     * creates a pre-set custom game set
+     * @param setNum
+     */
 	public CustomGameSet(int setNum){
 
 		if (setNum == 1){

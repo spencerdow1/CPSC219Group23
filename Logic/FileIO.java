@@ -5,6 +5,10 @@ import java.io.*;
 public class FileIO {
     private static File file = new File("src\\Logic\\Winners.txt");
 
+    /**
+     * reads the info from the files
+     * @return
+     */
     public static String[] Read() {
         FileInputStream fileInputStream = null;
         byte[] bytes = null;
@@ -28,6 +32,10 @@ public class FileIO {
         return data;
     }
 
+    /**
+     * re writes the file
+     * @param name
+     */
     public static void Write(String name){
         String[] data = Read();
         String[] newData = new String[5];
@@ -44,12 +52,6 @@ public class FileIO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-
-    public static void main(String args[]){
-        Write("Russ");
     }
 
 

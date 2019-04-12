@@ -11,7 +11,7 @@ public class Piece {
 	private boolean isHighlighted = false;
 
 	/**
-	 *
+	 *returns that the piece is highlighted
 	 * @return
 	 */
 	public boolean isHighlighted() {
@@ -19,7 +19,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *sets a piece to be highlighted
 	 * @param isHighlighted
 	 */
 	public void setHighlighted(boolean isHighlighted) {
@@ -27,7 +27,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *default piece conductor
 	 */
 	public Piece() {
 		setPosition(new Coord());
@@ -37,7 +37,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *constructer that creates a new piece with the following parameters
 	 * @param initialType
 	 * @param initialColour
 	 * @param initialCoord
@@ -53,7 +53,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *Copy constructor
 	 * @param aPiece
 	 */
 	public Piece(Piece aPiece){
@@ -64,7 +64,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *sets the piece type
 	 * @param type
 	 */
 	public void setType(String type) {
@@ -72,7 +72,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *gets the piece type
 	 * @return
 	 */
 	public String getType() {
@@ -81,14 +81,14 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *sets the piece colour
 	 * @param colour
 	 */
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
 
-	/**
+	/**gets the piece colour
 	 *
 	 * @return
 	 */
@@ -98,7 +98,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *sets the piece position
 	 * @param coord
 	 */
 	public void setPosition(Coord coord) {
@@ -106,7 +106,7 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *gets the piece position
 	 * @return
 	 */
 	public Coord getPosition() {
@@ -115,21 +115,24 @@ public class Piece {
 	}
 
 	/**
-	 *
+	 *sets the piece name
 	 * @param name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
+	/**
+	 * gets the piece name
+	 * @return
+	 */
 	public String getName() {
 		String copyName = name;
 		return copyName;
 	}
 
 	/**
-	 *
+	 * changes piece from pawn to knight if it reaches the opposite end of the board
 	 */
 	public void upgrade() {
 		

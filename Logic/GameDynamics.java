@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 public class GameDynamics extends Movement{
 
-
+    /**
+     * checks the game for the stalemate condition
+     * @param aGameSet
+     * @param theBoard
+     * @return
+     */
     public boolean stalemate(GameSet aGameSet, Board theBoard){
 
         boolean stalemate = false;
@@ -89,9 +94,12 @@ public class GameDynamics extends Movement{
     }
 
 
-
-
-
+    /**
+     * checks for a the win condition (no more pawns) to determine a winner
+     * @param theGameSet
+     * @param theBoard
+     * @return
+     */
     public String winCondition(GameSet theGameSet, Board theBoard){
 
         ArrayList<Piece> aPieceList = theGameSet.getGamePieces();
@@ -189,9 +197,12 @@ public class GameDynamics extends Movement{
     }
 
 
-
-
-
+    /**
+     * this method allows the moves to happen in a fashion that appears simultaneous
+     * @param turnMoves
+     * @param pieces
+     * @param currentBoard
+     */
     public void simultaneousMovement(ArrayList<Coord> turnMoves,
 
                                      GameSet pieces, Board currentBoard){

@@ -9,6 +9,10 @@ public class Board {
 	private Piece[][] currentBoard;
 
 	// creates new board
+
+	/**
+	 * Default constructor
+	 */
 	public Board() {
 		currentBoard = new Piece[5][5];
 	}
@@ -24,7 +28,10 @@ public class Board {
 		}
 	}
 
-
+	/**
+	 * updates the board
+	 * @param aGameSet
+	 */
 	public void updateBoard(GameSet aGameSet){
         Coord location;
         currentBoard = new Piece[5][5];
@@ -143,7 +150,11 @@ public class Board {
     // end of print board
 	}
 
-
+	/**
+	 * gets the piece from the corresponding coord
+	 * @param aCoord
+	 * @return
+	 */
 	public Piece getPiece(Coord aCoord) {
 		int someX = aCoord.getXCoord();
 		int someY = aCoord.getYCoord();
@@ -159,7 +170,11 @@ public class Board {
 		return retrievedPiece;
 	}
 
-
+	/**
+	 * sets the pieces
+	 * @param aPiece
+	 * @param aCoord
+	 */
 	public void setPiece(Piece aPiece, Coord aCoord) {
 		currentBoard[aCoord.getXCoord()][aCoord.getYCoord()] = aPiece;
 	}

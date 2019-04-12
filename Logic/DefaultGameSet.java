@@ -3,7 +3,9 @@ package Logic;
 import java.util.ArrayList;
 
 public class DefaultGameSet extends GameSet {
-
+	/**
+	 * creates the normal game set
+	 */
 	public DefaultGameSet(){
 
 		ArrayList<Piece> defaultPieces = new ArrayList<Piece>();
