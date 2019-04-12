@@ -3,13 +3,20 @@
 CPSC 219 Group 23
 
 ## Files
-Text Based: AIPlayer.java, ApocalypseTerminal.java, Board.java, Coord.java, CustomGameSet.java, DefaultGameSet.java, GameDynamicsTerminal.java, GameSet.java, HumanPlayer.java, Movement.java, Piece.java, Player.java
 
-GUI Version (All in the GUI package): AIPlayer.java, ApocalypseClick.java, Board.java, Coord.java, CustomGameSet.java, DefaultGameSet.java, GameDynamics.java, GameSet.java, GUIBOARD.java, HumanPlayer.java, MainMenu, Movement.java, Piece.java, Player.java, black_knight.png, black_pawn.png, white_knight.png, white_pawn.java
+Logic: AIPlayer.java, ApocalypseTerminal.java, Board.java, Coord.java, CustomGameSet.java, DefaultGameSet.java, GameDynamicsTerminal.java, GameSet.java, HumanPlayer.java, Movement.java, Piece.java, Player.java
+
+Text: ApocalypseTerminal.java, GameDynamicsTerminal.java
+
+GUI:  ApocalypseClick.java, GameDynamicsGUI.java, GUIBOARD.java, MainMenu.java, GUIinstructions.Java, GUIfileIO.java, GUIreadme.Java, black_knight.png, black_pawn.png, white_knight.png, white_pawn.java, black_knight_highlighted.png, black_pawn_highlighted.png, white_knight_highlighted.png, white_pawn_highlighted.java
+
+Tests: GameSetTest.java, CustomGameSetTest.jav, DefualtGameSetTest.java, PieceTest.java, CoordTest.java, AIPlayerTest.java, HumanPlayerTest.java, BoardTest.Java, GameDynamicsTest.java, MovementTest.java
 
 ### Prerequisites
 Java
 JavaFX
+Junit
+Hamcrest
 
 Files included in this pakage
 
