@@ -72,32 +72,40 @@ public class GUIFileIO extends Application {
  * FileIo scene that displays the highscores in a text file which is accessed through the mainmenu
  */
     public void start(Stage primaryStage) throws Exception {
-
+    	MainMenu mainmenuCall = new MainMenu();
         // set title
 
         primaryStage.setTitle("High Scores");
 
         //Create everything I need'
-
+        
+        Button mainmenuButton = new Button("Main Menu");
         Label HSlabel = new Label("High Score ");
-
         Label firstPlace = new Label();
 
-        // setBackround color
-
+        //create new group
         Group root = new Group();
-
+        
+        //define dimensions of Scene
         int xSceneLayout = 400;
-
         int ySceneLayout = 600;
-
-
-
+        
+        
+        /**
+    	 * Creates the scene
+    	 * @param <root> takes in the group created
+    	 * @param <xSceneLayout> sets x dimensions in scene
+    	 * @param <ySceneLayout> sets y dimensions in scene
+    	 * @param <Color.BLACK> sets the background color of scene
+    	 * 
+    	 * 
+        **/
+        
         Scene scene = new Scene(root, xSceneLayout, ySceneLayout, Color.BLACK);
 
 
 
-        HSlabel.setLayoutX(xSceneLayout /4);
+        HSlabel.setLayoutX(xSceneLayout -310);
 
         HSlabel.setLayoutY(ySceneLayout / 6);
 
@@ -109,7 +117,7 @@ public class GUIFileIO extends Application {
 
 
 
-        firstPlace.setLayoutX(xSceneLayout /2.5);
+        firstPlace.setLayoutX(xSceneLayout -260);
 
         firstPlace.setLayoutY(ySceneLayout / 3);
 
@@ -131,7 +139,7 @@ public class GUIFileIO extends Application {
 
         ArrayList<String> winners = null;
 
-
+        
 
 
 
@@ -178,7 +186,29 @@ public class GUIFileIO extends Application {
         }
 
 
+        mainmenuButton.setStyle("-fx-background-color:GREY");
+        mainmenuButton.setLayoutX(xSceneLayout-150);
+        mainmenuButton.setLayoutY(ySceneLayout -100);
+        mainmenuButton.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, 20));
+        mainmenuButton.setTextFill(Color.DARKRED);
+        root.getChildren().add(mainmenuButton);
+        
+mainmenuButton.setOnAction(e -> {
+            primaryStage.close();
+            Stage s = new Stage();
+            try {
+                mainmenuCall.start(s);
+                
+            } catch (Exception e1) {
 
+                e1.printStackTrace();
+            }
+            primaryStage.close();
+
+
+        });
+
+       
 
 
         primaryStage.setScene(scene);

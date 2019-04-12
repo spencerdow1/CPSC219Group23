@@ -70,13 +70,13 @@ public class GUIreadme extends Application {
  * The stage and start for the Readme. Accessed from the main menu.
  */
     public void start(Stage primaryStage) throws Exception {
-
+    	MainMenu mainmenuCall= new MainMenu();
         // set title
 
         primaryStage.setTitle("Readme");
 
         //Create everything I need'
-
+        Button mainmenuButton = new Button("Main Menu");
         Label Authors = new Label("Authors");
         Label Authors2 = new Label ("Group 23");
         Label files = new Label("Files");
@@ -136,14 +136,28 @@ public class GUIreadme extends Application {
 
                 "https://stackoverflow.com/questions/22848829/how-do-i-add-an-image-inside-a-rectangle-or-a-circle-in-javafx");
 
-
+        //creates a new group
         Group root = new Group();
-
+        
+        
+        //set dimensions for future scene to use
         int xSceneLayout = 1100;
         int ySceneLayout = 900;
 
+        
+        /**
+    	 * Creates the scene
+    	 * @param <root> takes in the group created
+    	 * @param <xSceneLayout> sets x dimensions in scene
+    	 * @param <ySceneLayout> sets y dimensions in scene
+    	 * @param <Color.BLACK> sets the background color of scene
+    	 * 
+    	 * 
+        **/
+        
         Scene scene = new Scene(root, xSceneLayout, ySceneLayout, Color.BLACK);
-
+        
+        
         Authors.setLayoutX(xSceneLayout-1100 );
         Authors.setLayoutY(ySceneLayout -900);
         Authors.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, 40));
@@ -222,6 +236,29 @@ public class GUIreadme extends Application {
         refrences2.setTextFill(Color.GHOSTWHITE);
         root.getChildren().add(refrences2);
 
+        mainmenuButton.setStyle("-fx-background-color:GREY");
+        mainmenuButton.setLayoutX(xSceneLayout-150);
+        mainmenuButton.setLayoutY(ySceneLayout -250);
+        mainmenuButton.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, 20));
+        mainmenuButton.setTextFill(Color.DARKRED);
+        root.getChildren().add(mainmenuButton);
+        
+ mainmenuButton.setOnAction(e -> {
+            
+            Stage s = new Stage();
+            try {
+                mainmenuCall.start(s);
+                
+            } catch (Exception e1) {
+
+                e1.printStackTrace();
+            }
+            primaryStage.close();
+
+
+        });
+
+        
         primaryStage.setScene(scene);
 
         primaryStage.show();

@@ -184,6 +184,7 @@ public class MainMenu extends Application{
 	root.getChildren().add(startButton);
 	});
 	highscores.setOnAction(e -> {
+		primaryStage.close();
 		Stage a = new Stage();
 		try{
 			highscore.start(a);
@@ -192,6 +193,7 @@ public class MainMenu extends Application{
 		}
 			});
 	readmeButton.setOnAction(e -> {
+		primaryStage.close();
 		Stage a = new Stage();
 		try{
 			read.start(a);
@@ -201,6 +203,7 @@ public class MainMenu extends Application{
 	});
 
 		instructionButton.setOnAction(e -> {
+			primaryStage.close();
 			Stage a = new Stage();
 			try{
 				instructions.start(a);

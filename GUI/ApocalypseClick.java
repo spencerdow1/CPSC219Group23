@@ -170,9 +170,18 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                             banner.start(a);
                         } catch (Exception e) {
                             e.printStackTrace();
-                        }
-                        scene.close();
+                        };
 
+                    }
+                    else if (gameDynamics.winCondition(gameSet,board) == "black"){
+                        file.Write(name2);
+                        GUIendBanner banner = new GUIendBanner(name2, scene);
+                        Stage a = new Stage();
+                        try {
+                            banner.start(a);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
@@ -253,7 +262,6 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                         e.printStackTrace();
                     }
                 }
-                System.exit(0);
 
             }
         }
