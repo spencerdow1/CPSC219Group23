@@ -152,8 +152,8 @@ public class GUIBOARD extends Application {
        
         
         // create the click based game
-        ApocalypseClick clickGame = new ApocalypseClick(dimX, dimY, root,playerOne.getName(), playerTwo.getName(), diff);
-        
+        ApocalypseClick clickGame = new ApocalypseClick(dimX, dimY, root,playerOne.getName(), playerTwo.getName(), diff, primaryStage);
+
         // build the scene and add the event
         root.addEventFilter(MouseEvent.MOUSE_CLICKED, clickGame);
         

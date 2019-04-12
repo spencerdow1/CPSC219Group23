@@ -1,6 +1,7 @@
 package GUI;
 
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import java.lang.Math;
 import java.util.ArrayList;
 import Logic.*;
+import javafx.stage.Stage;
 
 import static java.lang.Math.abs;
 
@@ -28,6 +30,7 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
     private Coord BlackPieceSelection;
     private Coord BlackPieceMove;
     private String diff;
+    private Stage scene = new Stage();
     GameDynamicsGUI gameDynamics = new GameDynamicsGUI();
     GameSet gameSet = new DefaultGameSet();
     Board board = new Board(gameSet);
@@ -36,25 +39,58 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
     String name2 = "Computer";
     FileIO file = new FileIO();
 
-
-    public ApocalypseClick(int dimX, int dimY, GridPane root, String name1, String name2, String diff){
+    /**
+     *
+     * @param dimX
+     * @param dimY
+     * @param root
+     * @param name1
+     * @param name2
+     * @param diff
+     * @param scence
+     */
+    public ApocalypseClick(int dimX, int dimY, GridPane root, String name1, String name2, String diff, Stage scence){
         setXSize(dimX);
         setYSize(dimY);
         setRoot(root);
         this.name1 = name1;
         setName2(name2);
         setDiff(diff);
+        setScene(scene);
 
     }
 
+
+    /**
+     *
+     * @param scene
+     */
+
+    public void setScene(Stage scene) {
+        this.scene = scene;
+    }
+
+    /**
+     *
+     * @param diff
+     */
     public void setDiff(String diff) {
         this.diff = diff;
     }
 
+    /**
+     *
+     * @param comp
+     */
     public void setName2(String comp) {
         this.name2 = comp;
     }
 
+    /**
+     *
+     * @param diff
+     * @return
+     */
     public int interpretDiff(String diff){
         if(diff.equals("Advanced")){
             return 1;
@@ -62,6 +98,10 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
         else return 0;
     }
 
+    /**
+     *
+     * @param aClick
+     */
     public void handle(MouseEvent aClick) {
         numTurnClicks += 1;
 
@@ -123,8 +163,16 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                         || gameDynamics.winCondition(gameSet, board) == "white") {
                     if(gameDynamics.winCondition(gameSet, board) == "white"){
                         file.Write(name1);
+                        GUIendBanner banner = new GUIendBanner(name1, scene);
+                        Stage a = new Stage();
+                        try {
+                            banner.start(a);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        scene.close();
+
                     }
-                    System.exit(0);
 
                 }
             }
@@ -186,9 +234,23 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                     || gameDynamics.winCondition(gameSet , board) == "white"){
                 if(gameDynamics.winCondition(gameSet , board) == "white"){
                     file.Write(name1);
+                    GUIendBanner banner = new GUIendBanner(name1, scene);
+                    Stage a = new Stage();
+                    try {
+                        banner.start(a);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 if(gameDynamics.winCondition(gameSet , board) == "black"){
                     file.Write(name2);
+                    GUIendBanner banner = new GUIendBanner(name2, scene);
+                    Stage a = new Stage();
+                    try {
+                        banner.start(a);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 System.exit(0);
 
@@ -197,46 +259,90 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
             public ArrayList<Piece> getList () {
                 return list;
             }
 
+    /**
+     *
+     * @param list
+     */
             public void setList (ArrayList < Piece > list) {
                 this.list = list;
             }
 
+    /**
+     *
+     * @param root
+     */
             public void setRoot (GridPane root){
                 this.root = root;
             }
 
+    /**
+     *
+     * @param whitePieceSelection
+     */
             public void setWhitePieceSelection (Coord whitePieceSelection){
                 WhitePieceSelection = whitePieceSelection;
             }
 
+    /**
+     *
+     * @return
+     */
             public Coord getWhitePieceSelection () {
                 return WhitePieceSelection;
             }
 
+    /**
+     *
+     * @param whitePieceMove
+     */
             public void setWhitePieceMove (Coord whitePieceMove){
                 WhitePieceMove = whitePieceMove;
             }
 
+    /**
+     *
+     * @return
+     */
             public Coord getWhitePieceMove () {
                 return WhitePieceMove;
             }
 
+    /**
+     *
+     * @param blackPieceSelection
+     */
             public void setBlackPieceSelection (Coord blackPieceSelection){
                 BlackPieceSelection = blackPieceSelection;
             }
 
+    /**
+     *
+     * @return
+     */
             public Coord getBlackPieceSelection () {
                 return BlackPieceSelection;
             }
 
+    /**
+     *
+     * @param blackPieceMove
+     */
             public void setBlackPieceMove (Coord blackPieceMove){
                 BlackPieceMove = blackPieceMove;
             }
 
+    /**
+     *
+     * @return
+     */
             public Coord getBlackPieceMove () {
                 return BlackPieceMove;
             }
@@ -245,39 +351,64 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
             // copy of the game for the given state, we are not concerned about
             // privacy leaks here. We're all consenting adults here.
 
-
+    /**
+     *
+     * @param x
+     * @param y
+     */
             public void setLastClick ( int x, int y){
                 lastClick = new Coord(x, y);
             }
 
-
+    /**
+     *
+     * @return
+     */
             public Coord getLastClick () {
                 Coord copyCoord = new Coord(lastClick);
                 return copyCoord;
             }
 
-
+    /**
+     *
+     * @param size
+     */
             public void setXSize ( int size){
                 sceneSizeX = size;
             }
 
-
+    /**
+     *
+     * @return
+     */
             public int getXSize () {
                 int copySize = sceneSizeX;
                 return copySize;
             }
 
-
+    /**
+     *
+     * @param size
+     */
             public void setYSize ( int size){
                 sceneSizeY = size;
             }
 
-
+    /**
+     *
+     * @return
+     */
             public int getYSize () {
                 int copySize = sceneSizeY;
                 return copySize;
             }
 
+    /**
+     *
+     * @param gameDynamics
+     * @param gameSet
+     * @param board
+     */
 
             public void updateGui (GameDynamicsGUI gameDynamics, GameSet gameSet, Board board){
                 list = gameSet.getGamePieces();
@@ -362,7 +493,12 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                 }
                 setList(list);
             }
-            public void setHighlightedPiece (Coord pieceCoordinate){
+
+    /**
+     *
+     * @param pieceCoordinate
+     */
+    public void setHighlightedPiece (Coord pieceCoordinate){
                 Piece selectedPieceWhite = gameSet.getPieceByCoord(pieceCoordinate);
                 selectedPieceWhite.setHighlighted(true);
             }

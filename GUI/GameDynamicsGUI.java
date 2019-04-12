@@ -5,9 +5,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameDynamicsGUI extends GameDynamics {
-
+    /**
+     *
+     */
     public GameDynamicsGUI(){}
 
+    /**
+     *
+     * @param selectedPiece
+     * @return
+     */
     public String moveCorrectColorPiece(Piece selectedPiece){
         String colorOfPiece = null;
         if (selectedPiece != null){
@@ -21,6 +28,16 @@ public class GameDynamicsGUI extends GameDynamics {
         return colorOfPiece;
     }
 
+    /**
+     *
+     * @param board
+     * @param currentPositionWhite
+     * @param desiredPositionWhite
+     * @param currentPositionBlack
+     * @param desiredPositionBlack
+     * @param gamePieces
+     * @param gameSet
+     */
     public void moveWithUserInput(Board board , Coord currentPositionWhite, Coord desiredPositionWhite,
                                   Coord currentPositionBlack, Coord desiredPositionBlack, ArrayList<Piece> gamePieces,
                                   GameSet gameSet){
@@ -72,6 +89,16 @@ public class GameDynamicsGUI extends GameDynamics {
         }
 
     }
+
+    /**
+     *
+     * @param board
+     * @param currentPositionWhite
+     * @param desiredPositionWhite
+     * @param gamePieces
+     * @param gameSet
+     * @param computerPlayer
+     */
     public void moveWithAI(Board board , Coord currentPositionWhite, Coord desiredPositionWhite,
                                   ArrayList<Piece> gamePieces, GameSet gameSet, AIPlayer computerPlayer){
         Piece selectedPieceWhite;

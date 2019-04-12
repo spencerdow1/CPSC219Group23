@@ -26,17 +26,32 @@ public class MainMenu extends Application{
 	 private Board board = new Board();
 	 private String diff = "";
 	 GUIFileIO highscore = new GUIFileIO();
+	 GUIinstructions instructions = new GUIinstructions();
+	 GUIreadme read = new GUIreadme();
 	 GUIBOARD gui = new GUIBOARD(white, black, diff);
 
+	/**
+	 *
+	 * @param diff
+	 */
 	public void setDiff(String diff) {
 		this.diff = diff;
 	}
 
+	/**
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 	launch(args);
 	
 	}
-	
+
+	/**
+	 *
+	 * @param primaryStage
+	 * @throws Exception
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 	// set title
@@ -175,6 +190,23 @@ public class MainMenu extends Application{
 			e1.printStackTrace();
 		}
 			});
+	readmeButton.setOnAction(e -> {
+		Stage a = new Stage();
+		try{
+			read.start(a);
+		} catch (Exception e1){
+			e1.printStackTrace();
+		}
+	});
+
+		instructionButton.setOnAction(e -> {
+			Stage a = new Stage();
+			try{
+				instructions.start(a);
+			} catch (Exception e1){
+				e1.printStackTrace();
+			}
+		});
 	startButton.setOnAction(e -> {
 	
 	white.setName(firstName.getText());

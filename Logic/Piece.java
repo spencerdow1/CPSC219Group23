@@ -10,16 +10,25 @@ public class Piece {
 	private String name;
 	private boolean isHighlighted = false;
 
+	/**
+	 *
+	 * @return
+	 */
 	public boolean isHighlighted() {
 		return isHighlighted;
 	}
 
-
+	/**
+	 *
+	 * @param isHighlighted
+	 */
 	public void setHighlighted(boolean isHighlighted) {
 		this.isHighlighted = isHighlighted;
 	}
 
-
+	/**
+	 *
+	 */
 	public Piece() {
 		setPosition(new Coord());
 		setType("NULL");
@@ -27,7 +36,13 @@ public class Piece {
 		setName("NULL");
 	}
 
-
+	/**
+	 *
+	 * @param initialType
+	 * @param initialColour
+	 * @param initialCoord
+	 * @param initialName
+	 */
 	public Piece(String initialType, String initialColour, Coord initialCoord,
 		String initialName) {
 
@@ -37,7 +52,10 @@ public class Piece {
 		setName(initialName);
 	}
 
-
+	/**
+	 *
+	 * @param aPiece
+	 */
 	public Piece(Piece aPiece){
         setType(aPiece.getType());
         setColour(aPiece.getColour());
@@ -45,40 +63,61 @@ public class Piece {
         setName(aPiece.getName());
 	}
 
-
+	/**
+	 *
+	 * @param type
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
-
+	/**
+	 *
+	 * @return
+	 */
 	public String getType() {
 		String copyType = type;
 		return copyType;
 	}
 
-
+	/**
+	 *
+	 * @param colour
+	 */
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
 
-
+	/**
+	 *
+	 * @return
+	 */
 	public String getColour() {
 		String copyColour = colour;
 		return copyColour;
 	}
 
-
+	/**
+	 *
+	 * @param coord
+	 */
 	public void setPosition(Coord coord) {
 		currentCoord = coord;
 	}
 
-
+	/**
+	 *
+	 * @return
+	 */
 	public Coord getPosition() {
 		Coord copyCoord = new Coord(currentCoord);
 		return copyCoord;
 	}
 
-
+	/**
+	 *
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -89,7 +128,9 @@ public class Piece {
 		return copyName;
 	}
 
-
+	/**
+	 *
+	 */
 	public void upgrade() {
 		
 		if (type.equals("pawn")){
