@@ -183,6 +183,16 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                             e.printStackTrace();
                         }
                     }
+                    else {
+                        GUIendBanner banner = new GUIendBanner("It's a draw", scene);
+                        Stage a = new Stage();
+                        try {
+                            banner.start(a);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
 
                 }
             }
@@ -262,6 +272,16 @@ public class ApocalypseClick implements EventHandler<MouseEvent> {
                         e.printStackTrace();
                     }
                 }
+                else {
+                    GUIendBanner banner = new GUIendBanner("It's a draw", scene);
+                    Stage a = new Stage();
+                    try {
+                        banner.start(a);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
 
             }
         }

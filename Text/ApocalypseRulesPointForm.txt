@@ -1,0 +1,11 @@
+
+RULES FOR APOCALYPSE
+1) Pieces move the same as in regular chess
+2) Capture all opponents pawns to win
+3) Movement is simultaneous and declared at the start of turn
+4) Pieces can try to move to the same location
+  - Pieces of same type moving to same square annihilate
+  - Pieces of different type, pawn is annihilated
+5) Pieces that try to capture each other simultaneously swap places
+6) If last pawns annihilate simultaneously its a draw
+7) If no moves are possible the game is a stalemate

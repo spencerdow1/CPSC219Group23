@@ -3,7 +3,7 @@ package Logic;
 import java.io.*;
 
 public class FileIO {
-    private static File file = new File("src\\Logic\\Winners.txt");
+    private static File file = new File("src//Logic//Winners.txt");
 
     /**
      * reads the info from the files

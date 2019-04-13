@@ -1,25 +1,77 @@
 package Text;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.*;
 import Logic.*;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-
+/**
+ * Final class which has the static method which lanches the game
+ */
 public class ApocalypseTerminal{
+
     /**
-     * This method is used to initialize and end the text based version of the game
-     * @param args
+     * Main program that takes input choices from the user and
+     * instantiates the different versions of the game
+     * @see GameDynamicsTerminal
      */
     public static void main(String args[]){
         Scanner keyboard = new Scanner(System.in);
-        FileIO file = new FileIO();
 
-	System.out.println(""); System.out.println("");
+	    System.out.println(""); System.out.println("");
         System.out.println("WELCOME TO TERMINAL BASED APOCALYPSE");
         System.out.println(""); System.out.println("");
 
-        // FILL IN // option to print rules to the terminal
+
+        // Options to print the rules to the terminal
+        System.out.print("Would you like to read the rules? ");
+        boolean correctRuleChoice = false;
+        String ruleAnswer = "";
+        while(correctRuleChoice == false){
+            ruleAnswer = keyboard.nextLine();
+            ruleAnswer = ruleAnswer.toUpperCase();
+
+            if (ruleAnswer.equals("Y") || ruleAnswer.equals("YES")){
+
+                try{
+                    File myFile = new File("src\\Text\\ApocalypseRulesPointForm.txt");
+                    if (!myFile.exists()) {
+                        throw new FileNotFoundException("");
+                    }
+                    FileReader fr = new FileReader("src\\Text\\ApocalypseRulesPointForm.txt");
+                    BufferedReader br = new BufferedReader(fr);
+                    String line;
+
+                    while ((line = br.readLine()) != null){
+                        System.out.println(line);
+                    }
+                }
+                catch(Exception e){
+                    if (e instanceof IOException){
+                        System.out.print("Caught generic IOException ");
+                        System.out.println("while reading rules.");
+                    }
+                    else if (e instanceof FileNotFoundException){
+                        System.out.print("File not found exception ");
+                        System.out.println("while reading rules.");
+                    }
+                    else {
+                        System.out.print("Caught generic IOException ");
+                        System.out.println("while reading rules.");
+                    }
+                }
+
+                correctRuleChoice = true;
+                System.out.println("");
+            }
+            else if (ruleAnswer.equals("N") || ruleAnswer.equals("NO")){
+                correctRuleChoice = true;
+            }
+            else {
+                System.out.println("Invalid choice. Please choose: Y/N.");
+            }
+        }
+
 
         // Instantiate single or multi-player mode
         System.out.print("Single or Multi-Player? (S/M):  ");
@@ -58,7 +110,7 @@ public class ApocalypseTerminal{
             AIPlayer computer = new AIPlayer(0);
 
             // choosing the difficulty
-            System.out.print("Choose difficulty "+player1Name+"; (0): ");
+            System.out.print("Choose difficulty "+player1Name+"; (0,1): ");
             boolean validDifficulty = false;
             while (validDifficulty == false){
                 String difficulty = keyboard.nextLine();
@@ -66,13 +118,17 @@ public class ApocalypseTerminal{
                 
                 if (difficulty.length() != 1){
                     System.out.print("Invalid choice. Please ");
-                    System.out.println("choose difficulty 0.");
+                    System.out.println("choose difficulty (0,1).");
 
                 }
 
                 else {
                     if (difficultyArr[0] == 48){
                         computer = new AIPlayer(0);
+                        validDifficulty = true;
+                    }
+                    else if (difficultyArr[0] == 49){
+                        computer = new AIPlayer(1);
                         validDifficulty = true;
                     }
                     else {
@@ -107,12 +163,10 @@ public class ApocalypseTerminal{
                 else if (winString.equals("black")){
                     System.out.println("Computer wins.");
                     System.out.println("");
-
                 }
                 else if (winString.equals("white")){
                     System.out.println(player1Name+" wins!");
                     System.out.println("");
-                    file.Write(player1Name);
                 }
                 else if (winString.equals("stalemate")){
                     System.out.println("Stalemate reached.");
@@ -161,7 +215,7 @@ public class ApocalypseTerminal{
 
             boolean playAgain = true;
             while (playAgain == true){
-                GameSet gameSet = new CustomGameSet(4);
+                GameSet gameSet = new DefaultGameSet();
                 Board gameBoard = new Board(gameSet);
                 GameDynamicsTerminal game = new GameDynamicsTerminal(
                         player1, player2);
@@ -182,12 +236,10 @@ public class ApocalypseTerminal{
                 }
                 else if (winString.equals("black")){
                     System.out.println(player2Name+" wins!");
-                    file.Write(player2Name);
                     System.out.println("");
                 }
                 else if (winString.equals("white")){
                     System.out.println(player1Name+" wins!");
-                    file.Write(player1Name);
                     System.out.println("");
                 }
                 else if (winString.equals("stalemate")){
@@ -223,6 +275,6 @@ public class ApocalypseTerminal{
         }
 
     // end of main
-    }}
+    }
 // end of class
-
+}
